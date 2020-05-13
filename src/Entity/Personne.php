@@ -116,19 +116,19 @@ class Personne
         return $this->animaux;
     }
 
-    public function addAnimaux(Animal $animaux): self
+    public function addAnimal(Animal $animal): self
     {
-        if (!$this->animaux->contains($animaux)) {
-            $this->animaux[] = $animaux;
+        if (!$this->animaux->contains($animal)) {
+            $this->animaux[] = $animal;
         }
 
         return $this;
     }
 
-    public function removeAnimaux(Animal $animaux): self
+    public function removeAnimal(Animal $animal): self
     {
-        if ($this->animaux->contains($animaux)) {
-            $this->animaux->removeElement($animaux);
+        if ($this->animaux->contains($animal)) {
+            $this->animaux->removeElement($animal);
         }
 
         return $this;

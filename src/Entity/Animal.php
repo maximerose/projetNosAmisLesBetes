@@ -42,11 +42,11 @@ class Animal
      * @ORM\ManyToMany(targetEntity=Personne::class, mappedBy="animaux")
      * @ORM\JoinTable(name="personne_animal")
      */
-    private $maitre;
+    private $maitres;
 
     public function __construct()
     {
-        $this->maitre = new ArrayCollection();
+        $this->maitres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,15 +93,15 @@ class Animal
     /**
      * @return Collection|Personne[]
      */
-    public function getMaitre(): Collection
+    public function getMaitres(): Collection
     {
-        return $this->maitre;
+        return $this->maitres;
     }
 
     public function addMaitre(Personne $maitre): self
     {
-        if (!$this->maitre->contains($maitre)) {
-            $this->maitre[] = $maitre;
+        if (!$this->maitres->contains($maitre)) {
+            $this->maitres[] = $maitre;
             $maitre->addAnimaux($this);
         }
 
@@ -110,8 +110,8 @@ class Animal
 
     public function removeMaitre(Personne $maitre): self
     {
-        if ($this->maitre->contains($maitre)) {
-            $this->maitre->removeElement($maitre);
+        if ($this->maitres->contains($maitre)) {
+            $this->maitres->removeElement($maitre);
             $maitre->removeAnimaux($this);
         }
 
