@@ -42,9 +42,29 @@
                         <a href="{{ path('adresse_index') }}"
                            class="nav-link {{ page == 'adresse' ? 'active' }}">Adresses</a>
                     </li>
+                </ul>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <span class="navbar-text">Connecté en tant que <strong>{{ app.user.username }}</strong>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            (Admin)
+                        {% elseif is_granted('ROLE_SECRETAIRE') %}
+                            (Secrétariat)
+                        {% endif %}
+                        | </span>
+                {% endif %}
+                <ul class="navbar-nav">
+                    {% if is_granted('ROLE_SECRETAIRE') %}
+                        <li class="nav-item">
+                            <a href="{{ path('admin_index') }}"
+                               class="nav-link {{ page == 'admin' ? 'active' }}">Espace d'administration</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
-                        <a href="{{ path('admin_index') }}"
-                           class="nav-link {{ page == 'admin' ? 'active' }}">Espace d'administration</a>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <a href="{{ path('app_logout') }}" class="nav-link">Déconnexion</a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}" class="nav-link">Connexion</a>
+                        {% endif %}
                     </li>
                 </ul>
             </div>
