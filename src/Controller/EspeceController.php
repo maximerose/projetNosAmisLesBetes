@@ -21,6 +21,7 @@ class EspeceController extends AbstractController
     public function index(EspeceRepository $especeRepository): Response
     {
         return $this->render('espece/index.html.twig', [
+            'page' => $this->getPage(),
             'especes' => $especeRepository->findBy([], ['nom' => 'ASC']),
         ]);
     }
@@ -33,7 +34,13 @@ class EspeceController extends AbstractController
     public function show(Espece $espece): Response
     {
         return $this->render('espece/show.html.twig', [
+            'page' => $this->getPage(),
             'espece' => $espece,
         ]);
+    }
+
+    private function getPage(): string
+    {
+        return 'espece';
     }
 }

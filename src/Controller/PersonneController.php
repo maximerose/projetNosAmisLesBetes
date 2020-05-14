@@ -21,6 +21,7 @@ class PersonneController extends AbstractController
     public function index(PersonneRepository $personneRepository): Response
     {
         return $this->render('personne/index.html.twig', [
+            'page' => $this->getPage(),
             'personnes' => $personneRepository->findBy([], ['nom' => 'ASC']),
         ]);
     }
@@ -33,7 +34,13 @@ class PersonneController extends AbstractController
     public function show(Personne $personne): Response
     {
         return $this->render('personne/show.html.twig', [
+            'page' => $this->getPage(),
             'personne' => $personne,
         ]);
+    }
+
+    private function getPage(): string
+    {
+        return 'personne';
     }
 }

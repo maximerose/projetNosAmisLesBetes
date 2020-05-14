@@ -21,6 +21,7 @@ class AnimalController extends AbstractController
     public function index(AnimalRepository $animalRepository): Response
     {
         return $this->render('animal/index.html.twig', [
+            'page' => $this->getPage(),
             'animaux' => $animalRepository->findBy([], ['nom' => 'ASC']),
         ]);
     }
@@ -33,7 +34,13 @@ class AnimalController extends AbstractController
     public function show(Animal $animal): Response
     {
         return $this->render('animal/show.html.twig', [
+            'page' => $this->getPage(),
             'animal' => $animal,
         ]);
+    }
+
+    private function getPage(): string
+    {
+        return 'animal';
     }
 }
