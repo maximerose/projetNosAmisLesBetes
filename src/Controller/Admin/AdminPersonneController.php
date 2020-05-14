@@ -23,6 +23,8 @@ class AdminPersonneController extends AbstractController
     public function index(PersonneRepository $personneRepository): Response
     {
         return $this->render('personne/index.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'personnes' => $personneRepository->findBy([], ['nom' => 'ASC']),
         ]);
     }
@@ -47,6 +49,8 @@ class AdminPersonneController extends AbstractController
         }
 
         return $this->render('admin/personne/new.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'personne' => $personne,
             'form' => $form->createView(),
         ]);
@@ -60,6 +64,8 @@ class AdminPersonneController extends AbstractController
     public function show(Personne $personne): Response
     {
         return $this->render('admin/personne/show.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'personne' => $personne,
         ]);
     }
@@ -82,6 +88,8 @@ class AdminPersonneController extends AbstractController
         }
 
         return $this->render('admin/personne/edit.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'personne' => $personne,
             'form' => $form->createView(),
         ]);
@@ -102,5 +110,15 @@ class AdminPersonneController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_personne_index');
+    }
+
+    private function getPage(): string
+    {
+        return 'admin';
+    }
+
+    private function getAdminPage(): string
+    {
+        return 'personne';
     }
 }

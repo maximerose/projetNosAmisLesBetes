@@ -23,6 +23,8 @@ class AdminAnimalController extends AbstractController
     public function index(AnimalRepository $animalRepository): Response
     {
         return $this->render('admin/animal/index.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'animaux' => $animalRepository->findBy([], ['nom' => 'ASC']),
         ]);
     }
@@ -47,6 +49,8 @@ class AdminAnimalController extends AbstractController
         }
 
         return $this->render('admin/animal/new.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'animal' => $animal,
             'form' => $form->createView(),
         ]);
@@ -60,6 +64,8 @@ class AdminAnimalController extends AbstractController
     public function show(Animal $animal): Response
     {
         return $this->render('admin/animal/show.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'animal' => $animal,
         ]);
     }
@@ -82,6 +88,8 @@ class AdminAnimalController extends AbstractController
         }
 
         return $this->render('admin/animal/edit.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'animal' => $animal,
             'form' => $form->createView(),
         ]);
@@ -102,5 +110,15 @@ class AdminAnimalController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_animal_index');
+    }
+
+    private function getPage(): string
+    {
+        return 'admin';
+    }
+
+    private function getAdminPage(): string
+    {
+        return 'animal';
     }
 }

@@ -23,6 +23,8 @@ class AdminEspeceController extends AbstractController
     public function index(EspeceRepository $especeRepository): Response
     {
         return $this->render('admin/espece/index.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'especes' => $especeRepository->findBy([], ['nom' => 'ASC']),
         ]);
     }
@@ -47,6 +49,8 @@ class AdminEspeceController extends AbstractController
         }
 
         return $this->render('admin/espece/new.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'espece' => $espece,
             'form' => $form->createView(),
         ]);
@@ -60,6 +64,8 @@ class AdminEspeceController extends AbstractController
     public function show(Espece $espece): Response
     {
         return $this->render('admin/espece/show.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'espece' => $espece,
         ]);
     }
@@ -82,6 +88,8 @@ class AdminEspeceController extends AbstractController
         }
 
         return $this->render('admin/espece/edit.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'espece' => $espece,
             'form' => $form->createView(),
         ]);
@@ -102,5 +110,15 @@ class AdminEspeceController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_espece_index');
+    }
+
+    private function getPage(): string
+    {
+        return 'admin';
+    }
+
+    private function getAdminPage(): string
+    {
+        return 'espece';
     }
 }

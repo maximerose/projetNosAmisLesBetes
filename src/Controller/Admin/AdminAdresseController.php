@@ -23,6 +23,8 @@ class AdminAdresseController extends AbstractController
     public function index(AdresseRepository $adresseRepository): Response
     {
         return $this->render('admin/adresse/index.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'adresses' => $adresseRepository->findAll(),
         ]);
     }
@@ -47,6 +49,8 @@ class AdminAdresseController extends AbstractController
         }
 
         return $this->render('admin/adresse/new.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'adresse' => $adresse,
             'form' => $form->createView(),
         ]);
@@ -60,6 +64,8 @@ class AdminAdresseController extends AbstractController
     public function show(Adresse $adresse): Response
     {
         return $this->render('admin/adresse/show.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'adresse' => $adresse,
         ]);
     }
@@ -82,6 +88,8 @@ class AdminAdresseController extends AbstractController
         }
 
         return $this->render('admin/adresse/edit.html.twig', [
+            'page' => $this->getPage(),
+            'adminPage' => $this->getAdminPage(),
             'adresse' => $adresse,
             'form' => $form->createView(),
         ]);
@@ -102,5 +110,15 @@ class AdminAdresseController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_adresse_index');
+    }
+
+    private function getPage(): string
+    {
+        return 'admin';
+    }
+
+    private function getAdminPage(): string
+    {
+        return 'adresse';
     }
 }
