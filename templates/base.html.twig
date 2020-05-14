@@ -1,3 +1,4 @@
+{% set page = 'accueil' %}
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -22,21 +23,30 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    {#                    <li class="nav-item {{ page == 'accueil' ? 'active' : '' }}">#}
-                    {#                        <a class="nav-link"#}
-                    {#                           href="{{ path('index') }}">Accueil</a>#}
-                    {#                    </li>#}
-                    {#                    <li class="nav-item {{ page == 'restaurants' ? 'active' : '' }}">#}
-                    {#                        <a class="nav-link" href="{{ path('restaurant_index') }}">Restaurants</a>#}
-                    {#                    </li>#}
-                    {#                    <li class="nav-item {{ page == 'chefs' ? 'active' : '' }}">#}
-                    {#                        <a class="nav-link"#}
-                    {#                           href="{{ path('chef_index') }}">Chefs</a>#}
-                    {#                    </li>#}
-                    {#                    <li class="nav-item {{ page == 'plats' ? 'active' : '' }}">#}
-                    {#                        <a class="nav-link"#}
-                    {#                           href="{{ path('plat_index') }}">Plats</a>#}
-                    {#                    </li>#}
+                    <li class="nav-item">
+                        <a href="{{ path('index') }}"
+                           class="nav-link {{ page == 'accueil' ? 'active' }}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('espece_index') }}"
+                           class="nav-link {{ page == 'espece' ? 'active' }}">Espèces</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('animal_index') }}"
+                           class="nav-link {{ page == 'animal' ? 'active' }}">Animaux</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('personne_index') }}"
+                           class="nav-link {{ page == 'personne' ? 'active' }}">Personnes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('adresse_index') }}"
+                           class="nav-link {{ page == 'adresse' ? 'active' }}">Adresses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('admin_index') }}"
+                           class="nav-link {{ page == 'admin' ? 'active' }}">Espace d'administration</a>
+                    </li>
                 </ul>
             </div>
         </nav>

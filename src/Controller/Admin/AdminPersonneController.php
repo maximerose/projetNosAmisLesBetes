@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminPersonneController extends AbstractController
 {
     /**
-     * @Route("/", name="personne_index", methods={"GET"})
+     * @Route("/", name="index", methods={"GET"})
      * @param PersonneRepository $personneRepository
      * @return Response
      */
@@ -28,7 +28,7 @@ class AdminPersonneController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="personne_new", methods={"GET","POST"})
+     * @Route("/new", name="new", methods={"GET","POST"})
      * @param Request $request
      * @return Response
      */
@@ -53,7 +53,7 @@ class AdminPersonneController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="personne_show", methods={"GET"})
+     * @Route("/{id}", name="show", methods={"GET"})
      * @param Personne $personne
      * @return Response
      */
@@ -65,7 +65,7 @@ class AdminPersonneController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="personne_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      * @param Request $request
      * @param Personne $personne
      * @return Response
@@ -88,7 +88,7 @@ class AdminPersonneController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="personne_delete", methods={"DELETE"})
+     * @Route("/{id}", name="delete", methods={"DELETE"})
      * @param Request $request
      * @param Personne $personne
      * @return Response

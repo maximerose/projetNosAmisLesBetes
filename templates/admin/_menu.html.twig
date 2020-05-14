@@ -1,40 +1,32 @@
-{% extends 'base.html.twig' %}
-{% block body %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="{{ path('index') }}">Nos amis les bêtes</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+{% set adminPage = 'accueil' %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a href="{{ path('index') }}"
-                       class="nav-link {{ page == 'accueil' ? 'active' }}">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ path('espece_index') }}"
-                       class="nav-link {{ page == 'espece' ? 'active' }}">Espèces</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ path('animal_index') }}"
-                       class="nav-link {{ page == 'animal' ? 'active' }}">Animaux</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ path('personne_index') }}"
-                       class="nav-link {{ page == 'personne' ? 'active' }}">Personnes</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ path('adresse_index') }}"
-                       class="nav-link {{ page == 'adresse' ? 'active' }}">Adresses</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ path('admin_index') }}"
-                       class="nav-link {{ page == 'admin' ? 'active' }}">Espace d'administration</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-{% endblock %}
-{% block adminbody %}{% endblock %}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a href="{{ path('admin_index') }}"
+                   class="nav-link {{ adminPage == 'accueil' ? 'active' }}">Accueil</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('admin_espece_index') }}"
+                   class="nav-link {{ adminPage == 'espece' ? 'active' }}">Espèces</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('admin_animal_index') }}"
+                   class="nav-link {{ adminPage == 'animal' ? 'active' }}">Animaux</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('admin_personne_index') }}"
+                   class="nav-link {{ adminPage == 'personne' ? 'active' }}">Personnes</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('admin_adresse_index') }}"
+                   class="nav-link {{ adminPage == 'adresse' ? 'active' }}">Adresses</a>
+            </li>
+        </ul>
+    </div>
+</nav>
