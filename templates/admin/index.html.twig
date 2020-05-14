@@ -1,33 +1,47 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title 'Espace d\'administration' %}
 
 {% block admin %}
-    <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
-
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
-        }
-    </style>
-
-    <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
-
-        This friendly message is coming from:
-        <ul>
-            <li>Your controller at <code><a
-                            href="{{ 'C:/Users/maxim/Dropbox/Cours/M1/M1S2/ArchiWeb/projetNosAmisLesBetes/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code>
-            </li>
-            <li>Your template at <code><a
-                            href="{{ 'C:/Users/maxim/Dropbox/Cours/M1/M1S2/ArchiWeb/projetNosAmisLesBetes/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code>
-            </li>
-        </ul>
+    <div class="container-fluid">
+        <h1>Espace d'administration</h1>
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-3 my-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Espèces</h5>
+                        <p class="card-text">Cliquez ci-dessous pour accéder à la liste des espèces.</p>
+                        <a href="{{ path('admin_espece_index') }}" class="btn btn-primary">Gérer</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 my-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Animaux</h5>
+                        <p class="card-text">Cliquez ci-dessous pour accéder à la liste des animaux.</p>
+                        <a href="{{ path('admin_animal_index') }}" class="btn btn-primary">Gérer</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 my-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Personnes</h5>
+                        <p class="card-text">Cliquez ci-dessous pour accéder à la liste des personnes.</p>
+                        <a href="{{ path('admin_personne_index') }}" class="btn btn-primary">Gérer</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 my-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Adresses</h5>
+                        <p class="card-text">Cliquez ci-dessous pour accéder à la liste des adresses.</p>
+                        <a href="{{ path('admin_adresse_index') }}" class="btn btn-primary">Gérer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

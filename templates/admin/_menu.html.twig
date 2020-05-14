@@ -1,11 +1,12 @@
 {% set adminPage = 'accueil' %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary mb-3">
+    <a class="navbar-brand" href="{{ path('admin_index') }}">Espace d'administration</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarAdmin"
+            aria-controls="navbarAdmin" aria-expanded="false" aria-label="Menu admin">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarAdmin">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a href="{{ path('admin_index') }}"
