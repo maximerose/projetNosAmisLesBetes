@@ -25,4 +25,10 @@
             </tr>
         </tbody>
     </table>
+
+    <a href="{{ path('admin_personne_index') }}">back to list</a>
+
+    <a href="{{ path('admin_personne_edit', {'id': personne.id}) }}">edit</a>
+
+    {{ include('admin/personne/_delete_form.html.twig') }}
 {% endblock %}
