@@ -102,7 +102,7 @@ class Animal
     {
         if (!$this->maitres->contains($maitre)) {
             $this->maitres[] = $maitre;
-            $maitre->addAnimaux($this);
+            $maitre->addAnimal($this);
         }
 
         return $this;
@@ -112,7 +112,7 @@ class Animal
     {
         if ($this->maitres->contains($maitre)) {
             $this->maitres->removeElement($maitre);
-            $maitre->removeAnimaux($this);
+            $maitre->removeAnimal($this);
         }
 
         return $this;

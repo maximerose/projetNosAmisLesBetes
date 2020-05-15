@@ -55,12 +55,12 @@ class Adresse
     /**
      * @return Collection|Personne[]
      */
-    public function getAnimaux(): Collection
+    public function getPersonnes(): Collection
     {
         return $this->personnes;
     }
 
-    public function addAnimaux(Personne $personne): self
+    public function addPersonne(Personne $personne): self
     {
         if (!$this->personnes->contains($personne)) {
             $this->personnes[] = $personne;
@@ -70,7 +70,7 @@ class Adresse
         return $this;
     }
 
-    public function removeAnimaux(Personne $personne): self
+    public function removePersonne(Personne $personne): self
     {
         if ($this->personnes->contains($personne)) {
             $this->personnes->removeElement($personne);

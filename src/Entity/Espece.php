@@ -60,23 +60,23 @@ class Espece
         return $this->animaux;
     }
 
-    public function addAnimaux(Animal $animaux): self
+    public function addAnimal(Animal $animal): self
     {
-        if (!$this->animaux->contains($animaux)) {
-            $this->animaux[] = $animaux;
-            $animaux->setEspece($this);
+        if (!$this->animaux->contains($animal)) {
+            $this->animaux[] = $animal;
+            $animal->setEspece($this);
         }
 
         return $this;
     }
 
-    public function removeAnimaux(Animal $animaux): self
+    public function removeAnimal(Animal $animal): self
     {
-        if ($this->animaux->contains($animaux)) {
-            $this->animaux->removeElement($animaux);
+        if ($this->animaux->contains($animal)) {
+            $this->animaux->removeElement($animal);
             // set the owning side to null (unless already changed)
-            if ($animaux->getEspece() === $this) {
-                $animaux->setEspece(null);
+            if ($animal->getEspece() === $this) {
+                $animal->setEspece(null);
             }
         }
 
