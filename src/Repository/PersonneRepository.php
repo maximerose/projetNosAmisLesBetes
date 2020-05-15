@@ -34,8 +34,6 @@ class PersonneRepository extends ServiceEntityRepository
         $data['total'] = $data['hommes'] + $data['femmes'];
 
         return $data;
-
-//        $hommes = $this->findBy(['sexe' => 'M', 'animaux' => $espece]);
     }
 
     // /**
