@@ -139,8 +139,27 @@ class AppFixture extends Fixture
         foreach ($animaux as $animal) {
             $randPersonne = $faker->numberBetween(0, count($personnes) - 1);
             $hasMaitre = $faker->numberBetween(0, 8);
-            if ($hasMaitre > 1) {
+            if ($hasMaitre > 1 && $hasMaitre < 5) {
                 $animal->addMaitre($personnes[$randPersonne]);
+            } else if ($hasMaitre >= 5 && $hasMaitre < 7) {
+                $animal->addMaitre($personnes[$randPersonne]);
+                $randPersonne2 = $faker->numberBetween(0, count($personnes) - 1);
+                while ($randPersonne2 === $randPersonne) {
+                    $randPersonne2 = $faker->numberBetween(0, count($personnes) - 1);
+                }
+                $animal->addMaitre($personnes[$randPersonne2]);
+            } else if ($hasMaitre >= 7) {
+                $animal->addMaitre($personnes[$randPersonne]);
+                $randPersonne2 = $faker->numberBetween(0, count($personnes) - 1);
+                while ($randPersonne2 === $randPersonne) {
+                    $randPersonne2 = $faker->numberBetween(0, count($personnes) - 1);
+                }
+                $animal->addMaitre($personnes[$randPersonne2]);
+                $randPersonne3 = $faker->numberBetween(0, count($personnes) - 1);
+                while ($randPersonne3 === $randPersonne2 || $randPersonne3 === $randPersonne) {
+                    $randPersonne3 = $faker->numberBetween(0, count($personnes) - 1);
+                }
+                $animal->addMaitre($personnes[$randPersonne3]);
             }
         }
 

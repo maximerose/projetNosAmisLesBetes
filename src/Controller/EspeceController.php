@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Espece;
 use App\Repository\EspeceRepository;
+use App\Repository\PersonneRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,12 +30,14 @@ class EspeceController extends AbstractController
     /**
      * @Route("/{id}", name="show", methods={"GET"})
      * @param Espece $espece
+     * @param PersonneRepository $personneRepository
      * @return Response
      */
-    public function show(Espece $espece): Response
+    public function show(Espece $espece, PersonneRepository $personneRepository): Response
     {
         return $this->render('espece/show.html.twig', [
             'page' => $this->getPage(),
+            'parite' => $personneRepository->getPariteEspece($espece),
             'espece' => $espece,
         ]);
     }
