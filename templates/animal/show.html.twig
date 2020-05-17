@@ -1,24 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Animal{% endblock %}
+{% block title 'Animal : ' ~ animal.nom %}
 
 {% block body %}
-    <h1>Animal</h1>
+    <div class="container-fluid">
+        <h1>{{ animal.nom }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ animal.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ animal.nom }}</td>
-            </tr>
-            <tr>
-                <th>Age</th>
-                <td>{{ animal.age }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <p>Espèce : <a href="{{ path('espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a></p>
+        <p>Âge : {{ animal.age > 1 ? animal.age ~ ' ans': animal.age ~ ' an' }}</p>
+        <p class="m-0">Maître(s) : </p>
+        <ul>
+            {% for maitre in animal.maitres %}
+                <li><a href="{{ path('personne_show', {id: maitre.id}) }}">{{ maitre.nom }} ({{ maitre.sexe }})</a>
+                    | <a href="{{ path('adresse_show', {id: maitre.adresse.id}) }}">{{ maitre.adresse.intitule }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

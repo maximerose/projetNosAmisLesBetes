@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Adresse;
 use App\Repository\AdresseRepository;
+use App\Repository\AnimalRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,10 +32,11 @@ class AdresseController extends AbstractController
      * @param Adresse $adresse
      * @return Response
      */
-    public function show(Adresse $adresse): Response
+    public function show(Adresse $adresse, AnimalRepository $animalRepository): Response
     {
         return $this->render('adresse/show.html.twig', [
             'page' => $this->getPage(),
+            'moyenneAge' => $animalRepository->getMoyenneAge($adresse),
             'adresse' => $adresse,
         ]);
     }

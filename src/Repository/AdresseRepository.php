@@ -19,6 +19,13 @@ class AdresseRepository extends ServiceEntityRepository
         parent::__construct($registry, Adresse::class);
     }
 
+    public function getMoyenneAgeAnimaux(Adresse $adresse): float
+    {
+        $qb = $this->createQueryBuilder('a');
+
+
+    }
+
     // /**
     //  * @return Adresse[] Returns an array of Adresse objects
     //  */

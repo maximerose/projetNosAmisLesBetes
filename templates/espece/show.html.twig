@@ -31,11 +31,13 @@
                             </td>
                             <td>{{ animal.age }}</td>
                             <td>
-                                {% for maitre in animal.maitres %}
-                                    <p class="m-0">
-                                        <a href="{{ path('personne_show', {id: maitre.id}) }}">{{ maitre.nom }}</a>
-                                    </p>
-                                {% endfor %}
+                                <ul class="list-unstyled">
+                                    {% for maitre in animal.maitres %}
+                                        <li>
+                                            <a href="{{ path('personne_show', {id: maitre.id}) }}">{{ maitre.nom }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
                             </td>
                         </tr>
                     {% endfor %}

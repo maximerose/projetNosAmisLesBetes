@@ -1,28 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Personne{% endblock %}
+{% block title 'Personne : ' ~ personne.nom %}
 
 {% block body %}
-    <h1>Personne</h1>
+    <div class="container-fluid">
+        <h1>{{ personne.nom }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ personne.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ personne.nom }}</td>
-            </tr>
-            <tr>
-                <th>Sexe</th>
-                <td>{{ personne.sexe }}</td>
-            </tr>
-            <tr>
-                <th>Age</th>
-                <td>{{ personne.age }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <h2>Informations générales</h2>
+
+        <p>Sexe : {{ personne.sexe == 'M' ? 'Homme' : 'Femme' }}</p>
+        <p>Adresse :
+            <a href="{{ path('adresse_show', {id: personne.adresse.id}) }}">{{ personne.adresse.intitule }}</a>
+        </p>
+
+        <h2>Liste des animaux</h2>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Espèce</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Maître(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for animal in personne.animaux %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('animal_show', {id: animal.id}) }}">{{ animal.nom }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>
+                            </td>
+                            <td>{{ animal.age }}</td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    {% for maitre in animal.maitres %}
+                                        <li>
+                                            <a href="{{ path('personne_show', {id: maitre.id}) }}">{{ maitre.nom }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

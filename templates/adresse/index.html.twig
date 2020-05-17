@@ -1,7 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Adresse index{% endblock %}
+{% block title 'Toutes les adresses' %}
 
 {% block body %}
-    <h1>Adresse index</h1>
+    <div class="container-fluid">
+        <h1>Toutes les adresses</h1>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Intitulé</th>
+                        <th scope="col">Habitants</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for adresse in adresses %}
+                        <tr>
+                            <td><a href="{{ path('adresse_show', {id: adresse.id}) }}">{{ adresse.intitule }}</a></td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    {% for personne in adresse.personnes %}
+                                        <li>
+                                            <a href="{{ path('personne_show', {id: personne.id}) }}">{{ personne.nom }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

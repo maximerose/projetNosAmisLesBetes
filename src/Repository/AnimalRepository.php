@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Adresse;
 use App\Entity\Animal;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +20,22 @@ class AnimalRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Animal::class);
+    }
+
+    public function getMoyenneAge(Adresse $adresse): float
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb
+            ->select('AVG(a.age)')
+            ->innerJoin('a.maitres', 'p', 'WITH', 'p.adresse = :adresse')
+            ->setParameter('adresse', $adresse->getId());
+
+        try {
+            return round($qb->getQuery()->getSingleScalarResult(), 2);
+        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException $e) {
+        }
     }
 
     // /**

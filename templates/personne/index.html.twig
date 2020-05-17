@@ -3,5 +3,28 @@
 {% block title %}Personne index{% endblock %}
 
 {% block body %}
-    <h1>Personne index</h1>
+    <div class="container-fluid">
+        <h1>Toutes les personnes</h1>
+        <div class="row">
+            {% for personne in personnes %}
+                <div class="col-6 col-md-4 col-lg-3 my-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ personne.nom }}</h5>
+                            <p class="card-text m-0">Sexe : {{ personne.sexe }}</p>
+                            <p class="card-text m-0">Adresse :
+                                <a href="{{ path('adresse_show', {id: personne.adresse.id}) }}">
+                                    {{ personne.adresse.intitule }}
+                                </a>
+                            </p>
+                            <p class="card-text">Nombre d'animaux : {{ personne.animaux | length }}</p>
+                            <a href="{{ path('personne_show', {id: personne.id}) }}" class="btn btn-primary">
+                                Voir la personne
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

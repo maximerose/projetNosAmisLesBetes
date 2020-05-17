@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Adresse;
 use App\Entity\Espece;
 use App\Entity\Personne;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -34,6 +35,10 @@ class PersonneRepository extends ServiceEntityRepository
         $data['total'] = $data['hommes'] + $data['femmes'];
 
         return $data;
+    }
+
+    public function getMoyenneAgeAnimaux(Adresse $adresse)
+    {
     }
 
     // /**
