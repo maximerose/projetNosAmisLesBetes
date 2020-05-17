@@ -1,11 +1,13 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}New Espece{% endblock %}
+{% block title 'Ajouter une espèce' %}
 
 {% block admin %}
-    <h1>Create new Espece</h1>
+    <div class="container-fluid">
+        <h1>Ajouter une nouvelle espèce</h1>
 
-    {{ include('admin/espece/_form.html.twig') }}
+        {{ include('admin/espece/_form.html.twig', {button_label : 'Ajouter'}) }}
 
-    <a href="{{ path('admin_espece_index') }}">back to list</a>
+        <a href="{{ path('admin_espece_index') }}">Retour à la liste</a>
+    </div>
 {% endblock %}

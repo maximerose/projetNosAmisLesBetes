@@ -2,5 +2,9 @@
       onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ animal.id) }}">
-    <button class="btn">Delete</button>
+    {% if table %}
+        <button class="btn btn-link text-danger"><i class="fas fa-trash-alt"></i></button>
+    {% else %}
+        <button class="btn btn-danger">{{ button_label|default('Supprimer') }}</button>
+    {% endif %}
 </form>

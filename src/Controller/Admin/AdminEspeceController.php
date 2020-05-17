@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Espece;
 use App\Form\EspeceType;
 use App\Repository\EspeceRepository;
+use App\Repository\PersonneRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,6 +46,11 @@ class AdminEspeceController extends AbstractController
             $entityManager->persist($espece);
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                'Espèce ajoutée !'
+            );
+
             return $this->redirectToRoute('admin_espece_index');
         }
 
@@ -59,13 +65,15 @@ class AdminEspeceController extends AbstractController
     /**
      * @Route("/{id}", name="show", methods={"GET"})
      * @param Espece $espece
+     * @param PersonneRepository $personneRepository
      * @return Response
      */
-    public function show(Espece $espece): Response
+    public function show(Espece $espece, PersonneRepository $personneRepository): Response
     {
         return $this->render('admin/espece/show.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),
+            'parite' => $personneRepository->getPariteEspece($espece),
             'espece' => $espece,
         ]);
     }
@@ -83,6 +91,10 @@ class AdminEspeceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                'success',
+                'Espèce modifiée !'
+            );
 
             return $this->redirectToRoute('admin_espece_index');
         }
@@ -107,6 +119,10 @@ class AdminEspeceController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($espece);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Espèce supprimée !'
+            );
         }
 
         return $this->redirectToRoute('admin_espece_index');
