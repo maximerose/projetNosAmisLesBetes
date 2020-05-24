@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('admin_adresse_delete', {'id': adresse.id}) }}"
+<form method="post" action="{{ path('admin_adresse_delete', {id: adresse.id}) }}"
       onsubmit="return confirm('Voulez-vous vraiment supprimer cette adresse ?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ adresse.id) }}">

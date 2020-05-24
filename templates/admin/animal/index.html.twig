@@ -1,37 +1,66 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Animal index{% endblock %}
+{% block title 'Tous les animaux' %}
 
 {% block admin %}
-    <h1>Animal index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Age</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for animal in animals %}
-                <tr>
-                    <td>{{ animal.id }}</td>
-                    <td>{{ animal.nom }}</td>
-                    <td>{{ animal.age }}</td>
-                    <td>
-                        <a href="{{ path('admin_animal_show', {'id': animal.id}) }}">show</a>
-                        <a href="{{ path('admin_animal_edit', {'id': animal.id}) }}">edit</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="4">no records found</td>
-                </tr>
+    <div class="container-fluid">
+        <h1>Liste des animaux</h1>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} mb-2">
+                    {{ message }}
+                </div>
             {% endfor %}
-        </tbody>
-    </table>
+        {% endfor %}
+        <a href="{{ path('admin_animal_new') }}" class="btn btn-primary mb-2">Ajouter un animal</a>
 
-    <a href="{{ path('admin_animal_new') }}">Create new</a>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Espèce</th>
+                        <th>Âge</th>
+                        <th>Maître(s)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for animal in animaux %}
+                        <tr>
+                            <td>{{ animal.nom }}</td>
+                            <td>
+                                <a href="{{ path('admin_espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>
+                            </td>
+                            <td>{{ animal.age }}</td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    {% for personne in animal.maitres %}
+                                        <li>
+                                            <a href="{{ path('admin_personne_show', {id: personne.id}) }}">{{ personne.nom }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td class="d-flex">
+                                <a href="{{ path('admin_animal_show', {id: animal.id}) }}" class="btn btn-link">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ path('admin_animal_edit', {id: animal.id}) }}" class="btn btn-link">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{ include('admin/animal/_delete_form.html.twig', {table: true}) }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">Aucun animal trouvé</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

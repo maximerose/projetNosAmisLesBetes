@@ -28,10 +28,10 @@
                             <td>{{ espece.nom }}</td>
                             <td>{{ espece.animaux | length }}</td>
                             <td class="d-flex">
-                                <a href="{{ path('admin_espece_show', {'id': espece.id}) }}" class="btn btn-link">
+                                <a href="{{ path('admin_espece_show', {id: espece.id}) }}" class="btn btn-link">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ path('admin_espece_edit', {'id': espece.id}) }}" class="btn btn-link">
+                                <a href="{{ path('admin_espece_edit', {id: espece.id}) }}" class="btn btn-link">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
                                 {% if is_granted('ROLE_ADMIN') and espece.animaux | length == 0 %}

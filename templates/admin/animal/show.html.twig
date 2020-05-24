@@ -1,30 +1,57 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Animal{% endblock %}
+{% block title 'Animal : ' ~ animal.nom %}
 
 {% block admin %}
-    <h1>Animal</h1>
+    <div class="container-fluid">
+        <h1>{{ animal.nom }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ animal.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ animal.nom }}</td>
-            </tr>
-            <tr>
-                <th>Age</th>
-                <td>{{ animal.age }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <p><a href="{{ path('admin_animal_index') }}">Retour à la liste</a></p>
 
-    <a href="{{ path('admin_animal_index') }}">back to list</a>
+        <p>Espèce : <a href="{{ path('admin_espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a></p>
+        <p>Âge : {{ animal.age > 1 ? animal.age ~ ' ans': animal.age ~ ' an' }}</p>
 
-    <a href="{{ path('admin_animal_edit', {'id': animal.id}) }}">edit</a>
+        <a href="{{ path('admin_animal_edit', {id: animal.id}) }}" class="btn btn-primary mb-2">Modifier</a>
 
-    {{ include('admin/animal/_delete_form.html.twig') }}
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ include('admin/animal/_delete_form.html.twig', {table: false}) }}
+        {% endif %}
+
+        <hr/>
+
+        <h2>Liste des maîtres</h2>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Sexe</th>
+                        <th scope="col">Adresse</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for personne in animal.maitres %}
+                        <tr>
+                            <td>{{ personne.nom }}</td>
+                            <td>{{ personne.sexe }}</td>
+                            <td>{{ personne.adresse.intitule }}</td>
+                            <td class="d-flex">
+                                <a href="{{ path('admin_personne_show', {id: personne.id}) }}" class="btn btn-link">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ path('admin_personne_edit', {id: personne.id}) }}" class="btn btn-link">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{ include('admin/animal/_delete_form.html.twig', {table: true}) }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

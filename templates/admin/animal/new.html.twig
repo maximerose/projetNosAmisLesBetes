@@ -1,11 +1,13 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}New Animal{% endblock %}
+{% block title 'Ajouter un animal' %}
 
 {% block admin %}
-    <h1>Create new Animal</h1>
+    <div class="container-fluid">
+        <h1>Ajouter un nouvel animal</h1>
 
-    {{ include('admin/animal/_form.html.twig') }}
+        {{ include('admin/animal/_form.html.twig', {button_label : 'Ajouter'}) }}
 
-    <a href="{{ path('admin_animal_index') }}">back to list</a>
+        <a href="{{ path('admin_animal_index') }}">Retour à la liste</a>
+    </div>
 {% endblock %}

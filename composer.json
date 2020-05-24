@@ -18,12 +18,14 @@
         "symfony/twig-bundle": "4.4.*",
         "symfony/twig-pack": "^1.0",
         "symfony/validator": "4.4.*",
+        "symfony/var-dumper": "4.4.*",
         "symfony/yaml": "4.4.*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "fzaninotto/faker": "^1.9",
         "symfony/debug": "4.4.*",
+        "symfony/debug-bundle": "4.4.*",
         "symfony/maker-bundle": "^1.17",
         "symfony/profiler-pack": "^1.0"
     },

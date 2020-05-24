@@ -14,7 +14,7 @@
                     class="fas fa-female"></i>
         </p>
 
-        <a href="{{ path('admin_espece_edit', {'id': espece.id}) }}" class="btn btn-primary mb-2">Modifier</a>
+        <a href="{{ path('admin_espece_edit', {id: espece.id}) }}" class="btn btn-primary mb-2">Modifier</a>
         {% if is_granted('ROLE_ADMIN') and espece.animaux | length > 0 %}
             {{ include('admin/espece/_delete_form.html.twig', {table: false}) }}
         {% endif %}
@@ -50,10 +50,10 @@
                                 </ul>
                             </td>
                             <td class="d-flex">
-                                <a href="{{ path('admin_animal_show', {'id': animal.id}) }}" class="btn btn-link">
+                                <a href="{{ path('admin_animal_show', {id: animal.id}) }}" class="btn btn-link">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ path('admin_animal_edit', {'id': animal.id}) }}" class="btn btn-link">
+                                <a href="{{ path('admin_animal_edit', {id: animal.id}) }}" class="btn btn-link">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
                                 {% if is_granted('ROLE_ADMIN') %}
