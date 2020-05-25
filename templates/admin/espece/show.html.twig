@@ -15,7 +15,7 @@
         </p>
 
         <a href="{{ path('admin_espece_edit', {id: espece.id}) }}" class="btn btn-primary mb-2">Modifier</a>
-        {% if is_granted('ROLE_ADMIN') and espece.animaux | length > 0 %}
+        {% if is_granted('ROLE_ADMIN') and espece.animaux | length == 0 %}
             {{ include('admin/espece/_delete_form.html.twig', {table: false}) }}
         {% endif %}
 

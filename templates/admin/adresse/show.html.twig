@@ -6,7 +6,13 @@
     <div class="container-fluid">
         <h1>{{ adresse.intitule }}</h1>
 
-        <a href="{{ path('admin_adresse_index') }}">Retour à la liste</a>
+        <p><a href="{{ path('admin_adresse_index') }}">Retour à la liste</a></p>
+
+        <a href="{{ path('admin_adresse_edit', {id: adresse.id}) }}" class="btn btn-primary mb-2">Modifier</a>
+
+        {% if is_granted('ROLE_ADMIN') and adresse.personnes | length == 0 %}
+            {{ include('admin/adresse/_delete_form.html.twig', {table: false}) }}
+        {% endif %}
 
         <h2>Liste des habitant</h2>
 
