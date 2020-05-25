@@ -22,7 +22,7 @@ class AdminPersonneController extends AbstractController
      */
     public function index(PersonneRepository $personneRepository): Response
     {
-        return $this->render('personne/index.html.twig', [
+        return $this->render('admin/personne/index.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),
             'personnes' => $personneRepository->findBy([], ['nom' => 'ASC']),

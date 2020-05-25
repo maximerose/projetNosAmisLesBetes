@@ -29,7 +29,7 @@
                             </td>
                             <td>{{ personne.sexe == 'M' ? 'Homme' : 'Femme' }}</td>
                             <td>
-                                <ul class="list-unstyled">
+                                <ul class="list-unstyled mb-0">
                                     {% for animal in personne.animaux %}
                                         <li>
                                             <table class="table table-striped">
@@ -46,7 +46,9 @@
                                                             <a href="{{ path('animal_show', {id: animal.id}) }}">{{ animal.nom }}</a>
                                                         </td>
                                                         <td>
-                                                            <a href="{{ path('espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>
+                                                            {% if animal.espece %}
+                                                                <a href="{{ path('espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>
+                                                            {% endif %}
                                                         </td>
                                                         <td>{{ animal.age }}</td>
                                                     </tr>

@@ -8,7 +8,13 @@
 
         <p><a href="{{ path('admin_animal_index') }}">Retour à la liste</a></p>
 
-        <p>Espèce : <a href="{{ path('admin_espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a></p>
+        <p>Espèce :
+            {% if animal.espece %}
+                <a href="{{ path('admin_espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>
+            {% else %}
+                <i>Non renseignée</i>
+            {% endif %}
+        </p>
         <p>Âge : {{ animal.age > 1 ? animal.age ~ ' ans': animal.age ~ ' an' }}</p>
 
         <a href="{{ path('admin_animal_edit', {id: animal.id}) }}" class="btn btn-primary mb-2">Modifier</a>

@@ -18,7 +18,7 @@
                         <tr>
                             <td><a href="{{ path('adresse_show', {id: adresse.id}) }}">{{ adresse.intitule }}</a></td>
                             <td>
-                                <ul class="list-unstyled">
+                                <ul class="list-unstyled mb-0">
                                     {% for personne in adresse.personnes %}
                                         <li>
                                             <a href="{{ path('personne_show', {id: personne.id}) }}">{{ personne.nom }}</a>

@@ -30,11 +30,13 @@
                         <tr>
                             <td>{{ animal.nom }}</td>
                             <td>
-                                <a href="{{ path('admin_espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>
+                                {% if animal.espece %}
+                                    <a href="{{ path('admin_espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>
+                                {% endif %}
                             </td>
                             <td>{{ animal.age }}</td>
                             <td>
-                                <ul class="list-unstyled">
+                                <ul class="list-unstyled mb-0">
                                     {% for personne in animal.maitres %}
                                         <li>
                                             <a href="{{ path('admin_personne_show', {id: personne.id}) }}">{{ personne.nom }}</a>

@@ -9,8 +9,13 @@
         <h2>Informations générales</h2>
 
         <p>Sexe : {{ personne.sexe == 'M' ? 'Homme' : 'Femme' }}</p>
+        <p>Âge : {{ personne.age }}</p>
         <p>Adresse :
-            <a href="{{ path('adresse_show', {id: personne.adresse.id}) }}">{{ personne.adresse.intitule }}</a>
+            {% if personne.adresse %}
+                <a href="{{ path('adresse_show', {id: personne.adresse.id}) }}">{{ personne.adresse.intitule }}</a>
+            {% else %}
+                <i>Non renseignée</i>
+            {% endif %}
         </p>
 
         <h2>Liste des animaux</h2>
@@ -21,7 +26,7 @@
                     <tr>
                         <th scope="col">Nom</th>
                         <th scope="col">Espèce</th>
-                        <th scope="col">Age</th>
+                        <th scope="col">Âge</th>
                         <th scope="col">Maître(s)</th>
                     </tr>
                 </thead>
@@ -32,11 +37,13 @@
                                 <a href="{{ path('animal_show', {id: animal.id}) }}">{{ animal.nom }}</a>
                             </td>
                             <td>
-                                <a href="{{ path('espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>
+                                {% if animal.espece %}
+                                    <a href="{{ path('espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>
+                                {% endif %}
                             </td>
                             <td>{{ animal.age }}</td>
                             <td>
-                                <ul class="list-unstyled">
+                                <ul class="list-unstyled mb-0">
                                     {% for maitre in animal.maitres %}
                                         <li>
                                             <a href="{{ path('personne_show', {id: maitre.id}) }}">{{ maitre.nom }}</a>

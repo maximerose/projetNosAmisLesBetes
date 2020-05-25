@@ -6,13 +6,25 @@
     <div class="container-fluid">
         <h1>{{ animal.nom }}</h1>
 
-        <p>Espèce : <a href="{{ path('espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a></p>
+        <p>Espèce :
+            {% if animal.espece %}
+                <a href="{{ path('espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>
+            {% else %}
+                <i>Non renseignée</i>
+            {% endif %}
+        </p>
         <p>Âge : {{ animal.age > 1 ? animal.age ~ ' ans': animal.age ~ ' an' }}</p>
         <p class="m-0">Maître(s) : </p>
         <ul>
             {% for maitre in animal.maitres %}
-                <li><a href="{{ path('personne_show', {id: maitre.id}) }}">{{ maitre.nom }} ({{ maitre.sexe }})</a>
-                    | <a href="{{ path('adresse_show', {id: maitre.adresse.id}) }}">{{ maitre.adresse.intitule }}</a>
+                <li>
+                    <a href="{{ path('personne_show', {id: maitre.id}) }}">{{ maitre.nom }} ({{ maitre.sexe }})</a>
+                    {% if maitre.adresse %}
+                        |
+                        <a href="{{ path('adresse_show', {id: maitre.adresse.id}) }}">
+                            {{ maitre.adresse.intitule }}
+                        </a>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
