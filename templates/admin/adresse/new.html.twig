@@ -1,11 +1,13 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}New Adresse{% endblock %}
+{% block title 'Ajouter une adresse' %}
 
 {% block admin %}
-    <h1>Create new Adresse</h1>
+    <div class="container-fluid">
+        <h1>Ajouter une nouvelle adresse</h1>
 
-    {{ include('admin/adresse/_form.html.twig') }}
+        {{ include('admin/adresse/_form.html.twig', {button_label : 'Ajouter'}) }}
 
-    <a href="{{ path('admin_adresse_index') }}">back to list</a>
+        <a href="{{ path('admin_adresse_index') }}">Retour à la liste</a>
+    </div>
 {% endblock %}

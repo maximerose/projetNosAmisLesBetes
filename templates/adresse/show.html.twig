@@ -6,6 +6,8 @@
     <div class="container-fluid">
         <h1>{{ adresse.intitule }}</h1>
 
+        <p><a href="{{ path('adresse_index') }}">Retour à la liste</a></p>
+
         <h2>Informations</h2>
 
         <p>Moyenne d'âge des animaux vivant à cette adresse : <strong>{{ moyenneAge }} ans</strong></p>
@@ -18,6 +20,7 @@
                     <tr>
                         <th scope="col">Nom</th>
                         <th scope="col">Sexe</th>
+                        <th scope="col">Âge</th>
                         <th scope="col">Animaux</th>
                     </tr>
                 </thead>
@@ -28,6 +31,7 @@
                                 <a href="{{ path('personne_show', {id: personne.id}) }}">{{ personne.nom }}</a>
                             </td>
                             <td>{{ personne.sexe == 'M' ? 'Homme' : 'Femme' }}</td>
+                            <td>{{ personne.age }}</td>
                             <td>
                                 <ul class="list-unstyled mb-0">
                                     {% for animal in personne.animaux %}

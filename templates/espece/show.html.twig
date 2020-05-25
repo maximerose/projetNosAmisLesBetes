@@ -5,6 +5,8 @@
     <div class="container-fluid">
         <h1>{{ espece.nom }}</h1>
 
+        <p><a href="{{ path('espece_index') }}">Retour à la liste</a></p>
+
         <p class="lead">Statistiques</p>
         {#        TODO Affichage pie chart#}
         <p>Parité maîtres / maîtresses : {{ parite.hommes }}<i class="fas fa-male"></i> | {{ parite.femmes }}<i

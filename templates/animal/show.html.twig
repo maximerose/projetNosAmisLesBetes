@@ -6,6 +6,8 @@
     <div class="container-fluid">
         <h1>{{ animal.nom }}</h1>
 
+        <p><a href="{{ path('animal_index') }}">Retour à la liste</a></p>
+
         <p>Espèce :
             {% if animal.espece %}
                 <a href="{{ path('espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>

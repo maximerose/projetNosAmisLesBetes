@@ -1,34 +1,62 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Personne{% endblock %}
+{% block title 'Personne : ' ~ personne.nom %}
 
 {% block admin %}
-    <h1>Personne</h1>
+    <div class="container-fluid">
+        <h1>{{ personne.nom }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ personne.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ personne.nom }}</td>
-            </tr>
-            <tr>
-                <th>Sexe</th>
-                <td>{{ personne.sexe }}</td>
-            </tr>
-            <tr>
-                <th>Age</th>
-                <td>{{ personne.age }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <p><a href="{{ path('admin_personne_index') }}">Retour à la liste</a></p>
 
-    <a href="{{ path('admin_personne_index') }}">back to list</a>
+        <h2>Informations générales</h2>
 
-    <a href="{{ path('admin_personne_edit', {'id': personne.id}) }}">edit</a>
+        <p>Sexe : {{ personne.sexe == 'M' ? 'Homme' : 'Femme' }}</p>
+        <p>Âge : {{ personne.age }}</p>
+        <p>Adresse :
+            {% if personne.adresse %}
+                <a href="{{ path('admin_adresse_show', {id: personne.adresse.id}) }}">{{ personne.adresse.intitule }}</a>
+            {% else %}
+                <i>Non renseignée</i>
+            {% endif %}
+        </p>
 
-    {{ include('admin/personne/_delete_form.html.twig') }}
+        <h2>Liste des animaux</h2>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Espèce</th>
+                        <th scope="col">Âge</th>
+                        <th scope="col">Maître(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for animal in personne.animaux %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('admin_animal_show', {id: animal.id}) }}">{{ animal.nom }}</a>
+                            </td>
+                            <td>
+                                {% if animal.espece %}
+                                    <a href="{{ path('animal_espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>
+                                {% endif %}
+                            </td>
+                            <td>{{ animal.age }}</td>
+                            <td>
+                                <ul class="list-unstyled mb-0">
+                                    {% for maitre in animal.maitres %}
+                                        <li>
+                                            <a href="{{ path('admin_personne_show', {id: maitre.id}) }}">{{ maitre.nom }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

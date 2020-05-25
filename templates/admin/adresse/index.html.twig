@@ -1,35 +1,60 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Adresse index{% endblock %}
+{% block title 'Toutes les adresses' %}
 
 {% block admin %}
-    <h1>Adresse index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Intitule</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for adresse in adresses %}
-                <tr>
-                    <td>{{ adresse.id }}</td>
-                    <td>{{ adresse.intitule }}</td>
-                    <td>
-                        <a href="{{ path('admin_adresse_show', {'id': adresse.id}) }}">show</a>
-                        <a href="{{ path('admin_adresse_edit', {'id': adresse.id}) }}">edit</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="3">no records found</td>
-                </tr>
+    <div class="container-fluid">
+        <h1>Liste des adresses</h1>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} mb-2">
+                    {{ message }}
+                </div>
             {% endfor %}
-        </tbody>
-    </table>
+        {% endfor %}
+        <a href="{{ path('admin_animal_new') }}" class="btn btn-primary mb-2">Ajouter une adresse</a>
 
-    <a href="{{ path('admin_adresse_new') }}">Create new</a>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Intitulé</th>
+                        <th>Habitants</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for adresse in adresses %}
+                        <tr>
+                            <td>{{ adresse.intitule }}</td>
+                            <td>
+                                <ul class="list-unstyled mb-0">
+                                    {% for personne in adresse.personnes %}
+                                        <li>
+                                            <a href="{{ path('admin_personne_show', {id: personne.id}) }}">{{ personne.nom }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td class="d-flex">
+                                <a href="{{ path('admin_adresse_show', {id: adresse.id}) }}" class="btn btn-link">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ path('admin_adresse_edit', {id: adresse.id}) }}" class="btn btn-link">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{ include('admin/adresse/_delete_form.html.twig', {table: true}) }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">Aucune personne trouvée</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
