@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
@@ -84,7 +85,7 @@ class AdminAdresseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_adresse_index');
+            return $this->redirectToRoute('admin_adresse_show', ['id' => $adresse->getId()]);
         }
 
         return $this->render('admin/adresse/edit.html.twig', [

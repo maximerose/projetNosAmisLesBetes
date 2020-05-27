@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
@@ -84,7 +85,7 @@ class AdminPersonneController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_personne_index');
+            return $this->redirectToRoute('admin_personne_show', ['id' => $personne->getId()]);
         }
 
         return $this->render('admin/personne/edit.html.twig', [

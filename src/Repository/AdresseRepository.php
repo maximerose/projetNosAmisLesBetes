@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Repository;
 
@@ -17,13 +18,6 @@ class AdresseRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Adresse::class);
-    }
-
-    public function getMoyenneAgeAnimaux(Adresse $adresse): float
-    {
-        $qb = $this->createQueryBuilder('a');
-
-
     }
 
     // /**

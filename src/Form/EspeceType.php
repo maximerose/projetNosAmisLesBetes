@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Form;
 
@@ -12,8 +13,7 @@ class EspeceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-        ;
+            ->add('nom');
     }
 
     public function configureOptions(OptionsResolver $resolver)

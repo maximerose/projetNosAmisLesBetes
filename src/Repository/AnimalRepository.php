@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Repository;
 
@@ -36,6 +37,8 @@ class AnimalRepository extends ServiceEntityRepository
         } catch (NoResultException $e) {
         } catch (NonUniqueResultException $e) {
         }
+
+        return 0;
     }
 
     // /**

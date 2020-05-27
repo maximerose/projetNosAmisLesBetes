@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -39,7 +40,7 @@ class Animal
     private $espece;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Personne::class, mappedBy="animaux")
+     * @ORM\ManyToMany(targetEntity=Personne::class, inversedBy="animaux", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="personne_animal")
      */
     private $maitres;
@@ -102,7 +103,7 @@ class Animal
     {
         if (!$this->maitres->contains($maitre)) {
             $this->maitres[] = $maitre;
-            $maitre->addAnimal($this);
+            $maitre->addAnimaux($this);
         }
 
         return $this;
@@ -112,7 +113,7 @@ class Animal
     {
         if ($this->maitres->contains($maitre)) {
             $this->maitres->removeElement($maitre);
-            $maitre->removeAnimal($this);
+            $maitre->removeAnimaux($this);
         }
 
         return $this;

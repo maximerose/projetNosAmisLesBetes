@@ -45,7 +45,7 @@
                             </td>
                             <td>
                                 {% if animal.espece %}
-                                    <a href="{{ path('animal_espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>
+                                    <a href="{{ path('admin_espece_show', {id: animal.espece.id}) }}">{{ animal.espece.nom }}</a>
                                 {% endif %}
                             </td>
                             <td>{{ animal.age }}</td>

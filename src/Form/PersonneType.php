@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Form;
 
@@ -61,7 +62,8 @@ class PersonneType extends AbstractType
                     'title' => 'Aucun animal sélectionné...'
                 ],
                 'multiple' => true,
-                'required' => false
+                'required' => false,
+                'by_reference' => false
             ]);
     }
 

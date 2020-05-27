@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
@@ -83,8 +84,8 @@ class AdminAnimalController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('admin_animal_index');
+// TODO Ajouter messages push
+            return $this->redirectToRoute('admin_animal_show', ['id' => $animal->getId()]);
         }
 
         return $this->render('admin/animal/edit.html.twig', [

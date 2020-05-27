@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -39,14 +40,13 @@ class Personne
     private $age;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="animaux")
+     * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="personnes")
      * @ORM\JoinTable(name="adresse")
      */
     private $adresse;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Animal::class, inversedBy="maitre")
-     * @ORM\JoinTable(name="personne_animal")
+     * @ORM\ManyToMany(targetEntity=Animal::class, mappedBy="maitres")
      */
     private $animaux;
 
@@ -116,19 +116,21 @@ class Personne
         return $this->animaux;
     }
 
-    public function addAnimal(Animal $animal): self
+    public function addAnimaux(Animal $animal): self
     {
         if (!$this->animaux->contains($animal)) {
             $this->animaux[] = $animal;
+            $animal->addMaitre($this);
         }
 
         return $this;
     }
 
-    public function removeAnimal(Animal $animal): self
+    public function removeAnimaux(Animal $animal): self
     {
         if ($this->animaux->contains($animal)) {
             $this->animaux->removeElement($animal);
+            $animal->removeMaitre($this);
         }
 
         return $this;

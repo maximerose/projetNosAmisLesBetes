@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
@@ -96,7 +97,7 @@ class AdminEspeceController extends AbstractController
                 'Espèce modifiée !'
             );
 
-            return $this->redirectToRoute('admin_espece_index');
+            return $this->redirectToRoute('admin_espece_show', ['id' => $espece->getId()]);
         }
 
         return $this->render('admin/espece/edit.html.twig', [

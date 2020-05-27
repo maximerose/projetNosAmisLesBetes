@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Form;
 
@@ -12,8 +13,7 @@ class AdresseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('intitule')
-        ;
+            ->add('intitule');
     }
 
     public function configureOptions(OptionsResolver $resolver)

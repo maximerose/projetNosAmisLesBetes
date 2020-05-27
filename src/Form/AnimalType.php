@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Form;
 
@@ -37,7 +38,7 @@ class AnimalType extends AbstractType
                     'data-live-search' => true,
                     'title' => 'Aucune espèce sélectionnée...'
                 ],
-                'required' => false
+                'required' => false,
             ])
             ->add('maitres', EntityType::class, [
                 'class' => Personne::class,
@@ -54,7 +55,8 @@ class AnimalType extends AbstractType
                     'title' => 'Aucun maître sélectionné...'
                 ],
                 'multiple' => true,
-                'required' => false
+                'required' => false,
+                'by_reference' => false
             ]);
     }
 
