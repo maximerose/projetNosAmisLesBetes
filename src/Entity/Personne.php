@@ -104,7 +104,6 @@ class Personne
     public function setAdresse(?Adresse $adresse): self
     {
         $this->adresse = $adresse;
-
         return $this;
     }
 

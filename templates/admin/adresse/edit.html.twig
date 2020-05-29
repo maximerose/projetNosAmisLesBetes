@@ -1,10 +1,10 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title 'Modifier l\'adresse : ' ~ animal.nom %}
+{% block title 'Modifier l\'adresse : ' ~ adresse.intitule %}
 
 {% block admin %}
     <div class="container-fluid">
-        <h1>Modifier l'adresse : {{ adresse.nom }}</h1>
+        <h1>Modifier l'adresse : {{ adresse.intitule }}</h1>
 
         {{ include('admin/adresse/_form.html.twig', {button_label : 'Modifier'}) }}
 

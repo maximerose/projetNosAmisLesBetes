@@ -45,6 +45,10 @@ class AdminPersonneController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($personne);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Personne ajoutée !'
+            );
 
             return $this->redirectToRoute('admin_personne_index');
         }
@@ -85,6 +89,11 @@ class AdminPersonneController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash(
+                'success',
+                'Personne modifiée !'
+            );
+
             return $this->redirectToRoute('admin_personne_show', ['id' => $personne->getId()]);
         }
 
@@ -108,6 +117,10 @@ class AdminPersonneController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($personne);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Personne supprimée !'
+            );
         }
 
         return $this->redirectToRoute('admin_personne_index');

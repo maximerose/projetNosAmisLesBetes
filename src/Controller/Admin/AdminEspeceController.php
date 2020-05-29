@@ -116,13 +116,20 @@ class AdminEspeceController extends AbstractController
      */
     public function delete(Request $request, Espece $espece): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $espece->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($espece);
-            $entityManager->flush();
+        if (count($espece->getAnimaux()) == 0) {
+            if ($this->isCsrfTokenValid('delete' . $espece->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($espece);
+                $entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    'Espèce supprimée !'
+                );
+            }
+        } else {
             $this->addFlash(
-                'success',
-                'Espèce supprimée !'
+                'warning',
+                'Il y a des animaux de cette espèce, vous ne pouvez pas la supprimer'
             );
         }
 

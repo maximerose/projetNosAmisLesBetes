@@ -26,7 +26,7 @@ class Adresse
     private $intitule;
 
     /**
-     * @ORM\OneToMany(targetEntity=Personne::class, mappedBy="adresse")
+     * @ORM\OneToMany(targetEntity=Personne::class, mappedBy="adresse", cascade={"persist"})
      * @ORM\JoinTable(name="personne")
      */
     private $personnes;

@@ -12,7 +12,7 @@
                 </div>
             {% endfor %}
         {% endfor %}
-        <a href="{{ path('admin_animal_new') }}" class="btn btn-primary mb-2">Ajouter une adresse</a>
+        <a href="{{ path('admin_adresse_new') }}" class="btn btn-primary mb-2">Ajouter une adresse</a>
 
         <div class="table-responsive">
             <table class="table table-striped">
@@ -43,14 +43,14 @@
                                 <a href="{{ path('admin_adresse_edit', {id: adresse.id}) }}" class="btn btn-link">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                {% if is_granted('ROLE_ADMIN') %}
+                                {% if is_granted('ROLE_ADMIN') and adresse.personnes | length == 0 %}
                                     {{ include('admin/adresse/_delete_form.html.twig', {table: true}) }}
                                 {% endif %}
                             </td>
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="3">Aucune personne trouvée</td>
+                            <td colspan="3">Aucune adresse trouvée</td>
                         </tr>
                     {% endfor %}
                 </tbody>

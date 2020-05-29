@@ -1,0 +1,60 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title 'Tous les comptes' %}
+
+{% block admin %}
+    <div class="container-fluid">
+        <h1>Liste des comptes</h1>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} mb-2">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <a href="{{ path('admin_user_new') }}" class="btn btn-primary mb-2">Ajouter un compte</a>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Rôle</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            {% set i = 1 %}
+                            <td>
+                                [
+                                {% for role in user.roles %}
+                                    {{ role }}{{ i < user.roles | length ? ',':'' }}
+                                    {% set i = i+1 %}
+                                {% endfor %}
+                                ]
+                            </td>
+                            <td class="d-flex">
+                                <a href="{{ path('admin_user_show', {id: user.id}) }}" class="btn btn-link">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ path('admin_user_edit', {id: user.id}) }}" class="btn btn-link">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{ include('admin/user/_delete_form.html.twig', {table: true}) }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">Aucun compté trouvée</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title 'Ajouter un compte' %}
+
+{% block admin %}
+    <div class="container-fluid">
+        <h1>Ajouter une nouveau compte</h1>
+
+        {{ include('admin/user/_form.html.twig', {button_label : 'Ajouter'}) }}
+
+        <a href="{{ path('admin_user_index') }}">Retour à la liste</a>
+    </div>
+{% endblock %}

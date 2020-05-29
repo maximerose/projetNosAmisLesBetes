@@ -46,6 +46,11 @@ class AdminAdresseController extends AbstractController
             $entityManager->persist($adresse);
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                'Adresse ajoutée !'
+            );
+
             return $this->redirectToRoute('admin_adresse_index');
         }
 
@@ -85,6 +90,11 @@ class AdminAdresseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash(
+                'success',
+                'Adresse modifiée !'
+            );
+
             return $this->redirectToRoute('admin_adresse_show', ['id' => $adresse->getId()]);
         }
 
@@ -104,10 +114,21 @@ class AdminAdresseController extends AbstractController
      */
     public function delete(Request $request, Adresse $adresse): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $adresse->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($adresse);
-            $entityManager->flush();
+        if (count($adresse->getPersonnes()) === 0) {
+            if ($this->isCsrfTokenValid('delete' . $adresse->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($adresse);
+                $entityManager->flush();
+                $this->addFlash(
+                    'success',
+                    'Adresse supprimée !'
+                );
+            }
+        } else {
+            $this->addFlash(
+                'warning',
+                'Il y a des personnes vivant à cette adresse, vous ne pouvez pas la supprimer'
+            );
         }
 
         return $this->redirectToRoute('admin_adresse_index');

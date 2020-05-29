@@ -1,0 +1,31 @@
+{{ form_start(form) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.password) }}
+<div class="form-group">
+    <label for="user_roles">Rôle</label>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="user_roles" id="user_role_user"
+               value="ROLE_USER"
+                {{ 'ROLE_ADMIN' not in user.roles and 'ROLE_SECRETAIRE' not in user.roles or user.roles | length == 0 ? 'checked':'' }}>
+        <label class="form-check-label" for="user_role_user">
+            Utilisateur
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="user_roles" id="user_role_admin"
+               value="ROLE_ADMIN" {{ 'ROLE_ADMIN' in user.roles ? 'checked':'' }}>
+        <label class="form-check-label" for="user_role_admin">
+            Administrateur
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="user_roles" id="user_role_secretaire"
+               value="ROLE_SECRETAIRE"
+                {{ 'ROLE_SECRETAIRE' in user.roles and 'ROLE_ADMIN' not in user.roles ? 'checked':'' }}>
+        <label class="form-check-label" for="user_role_secretaire">
+            Secrétariat
+        </label>
+    </div>
+</div>
+<button class="btn btn-primary mb-2">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

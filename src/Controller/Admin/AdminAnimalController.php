@@ -45,7 +45,10 @@ class AdminAnimalController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($animal);
             $entityManager->flush();
-
+            $this->addFlash(
+                'success',
+                'Animal ajouté !'
+            );
             return $this->redirectToRoute('admin_animal_index');
         }
 
@@ -84,7 +87,10 @@ class AdminAnimalController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-// TODO Ajouter messages push
+            $this->addFlash(
+                'success',
+                'Animal modifié !'
+            );
             return $this->redirectToRoute('admin_animal_show', ['id' => $animal->getId()]);
         }
 
@@ -108,6 +114,10 @@ class AdminAnimalController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($animal);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Animal supprimé !'
+            );
         }
 
         return $this->redirectToRoute('admin_animal_index');
