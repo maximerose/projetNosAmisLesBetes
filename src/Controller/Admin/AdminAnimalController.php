@@ -23,6 +23,8 @@ class AdminAnimalController extends AbstractController
      */
     public function index(AnimalRepository $animalRepository): Response
     {
+        // TODO Paginer
+        // TODO Recherche
         return $this->render('admin/animal/index.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),

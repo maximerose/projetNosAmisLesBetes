@@ -21,6 +21,8 @@ class PersonneController extends AbstractController
      */
     public function index(PersonneRepository $personneRepository): Response
     {
+        // TODO Paginer
+        // TODO Recherche
         return $this->render('personne/index.html.twig', [
             'page' => $this->getPage(),
             'personnes' => $personneRepository->findBy([], ['nom' => 'ASC']),

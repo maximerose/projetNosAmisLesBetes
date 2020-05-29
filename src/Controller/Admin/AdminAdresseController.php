@@ -23,6 +23,8 @@ class AdminAdresseController extends AbstractController
      */
     public function index(AdresseRepository $adresseRepository): Response
     {
+        // TODO Paginer
+        // TODO Recherche
         return $this->render('admin/adresse/index.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),

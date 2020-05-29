@@ -22,6 +22,8 @@ class AdresseController extends AbstractController
      */
     public function index(AdresseRepository $adresseRepository): Response
     {
+        // TODO Paginer
+        // TODO Recherche
         return $this->render('adresse/index.html.twig', [
             'page' => $this->getPage(),
             'adresses' => $adresseRepository->findAll(),

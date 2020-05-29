@@ -22,6 +22,8 @@ class EspeceController extends AbstractController
      */
     public function index(EspeceRepository $especeRepository): Response
     {
+        // TODO Paginer
+        // TODO Recherche
         return $this->render('espece/index.html.twig', [
             'page' => $this->getPage(),
             'especes' => $especeRepository->findBy([], ['nom' => 'ASC']),

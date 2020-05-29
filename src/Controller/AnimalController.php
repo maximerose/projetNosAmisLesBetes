@@ -21,6 +21,8 @@ class AnimalController extends AbstractController
      */
     public function index(AnimalRepository $animalRepository): Response
     {
+        // TODO Paginer
+        // TODO Recherche
         return $this->render('animal/index.html.twig', [
             'page' => $this->getPage(),
             'animaux' => $animalRepository->findBy([], ['nom' => 'ASC']),

@@ -24,6 +24,8 @@ class AdminUserController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
+        // TODO Paginer
+        // TODO Recherche
         return $this->render('admin/user/index.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),

@@ -24,6 +24,8 @@ class AdminEspeceController extends AbstractController
      */
     public function index(EspeceRepository $especeRepository): Response
     {
+        // TODO Paginer
+        // TODO Recherche
         return $this->render('admin/espece/index.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),
