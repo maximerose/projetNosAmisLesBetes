@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 use App\Entity\Adresse;
 use App\Form\AdresseType;
 use App\Repository\AdresseRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,16 +20,23 @@ class AdminAdresseController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET"})
      * @param AdresseRepository $adresseRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return Response
      */
-    public function index(AdresseRepository $adresseRepository): Response
+    public function index(AdresseRepository $adresseRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        // TODO Paginer
+        $adresses = $paginator->paginate(
+            $adresseRepository->findAllQuery(),
+            $request->query->getInt('page', 1),
+            10
+        );
+
         // TODO Recherche
         return $this->render('admin/adresse/index.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),
-            'adresses' => $adresseRepository->findAll(),
+            'adresses' => $adresses,
         ]);
     }
 

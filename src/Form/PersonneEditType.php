@@ -15,12 +15,11 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PersonneType extends AbstractType
+class PersonneEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
             ->add('sexe', ChoiceType::class, [
                 'choices' => [
                     'Homme' => 'M',

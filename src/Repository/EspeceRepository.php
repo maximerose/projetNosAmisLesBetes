@@ -5,6 +5,8 @@ namespace App\Repository;
 
 use App\Entity\Espece;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,32 +22,20 @@ class EspeceRepository extends ServiceEntityRepository
         parent::__construct($registry, Espece::class);
     }
 
-    // /**
-    //  * @return Espece[] Returns an array of Espece objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return QueryBuilder
+     */
+    public function findAllQueryBuilder(): QueryBuilder
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+            ->orderBy('e.nom', 'ASC');
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Espece
+    /**
+     * @return Query
+     */
+    public function findAllQuery(): Query
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->findAllQueryBuilder()->getQuery();
     }
-    */
 }

@@ -8,6 +8,8 @@ use App\Entity\Animal;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -41,32 +43,22 @@ class AnimalRepository extends ServiceEntityRepository
         return 0;
     }
 
-    // /**
-    //  * @return Animal[] Returns an array of Animal objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Animal
+    /**
+     * @return QueryBuilder
+     */
+    public function findAllQueryBuilder(): QueryBuilder
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->orderBy('a.nom', 'ASC');
     }
-    */
+
+    /**
+     * @return Query
+     */
+    public function findAllQuery(): Query
+    {
+        return $this->findAllQueryBuilder()->getQuery();
+    }
+
 }

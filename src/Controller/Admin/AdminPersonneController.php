@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Personne;
-use App\Form\PersonneType;
+use App\Form\PersonneEditType;
+use App\Form\PersonneNewType;
 use App\Repository\PersonneRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,16 +21,23 @@ class AdminPersonneController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET"})
      * @param PersonneRepository $personneRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return Response
      */
-    public function index(PersonneRepository $personneRepository): Response
+    public function index(PersonneRepository $personneRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        // TODO Paginer
+        $personnes = $paginator->paginate(
+            $personneRepository->findAllQuery(),
+            $request->query->getInt('page', 1),
+            10
+        );
+
         // TODO Recherche
         return $this->render('admin/personne/index.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),
-            'personnes' => $personneRepository->findBy([], ['nom' => 'ASC']),
+            'personnes' => $personnes,
         ]);
     }
 
@@ -40,7 +49,7 @@ class AdminPersonneController extends AbstractController
     public function new(Request $request): Response
     {
         $personne = new Personne();
-        $form = $this->createForm(PersonneType::class, $personne);
+        $form = $this->createForm(PersonneNewType::class, $personne);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -85,7 +94,7 @@ class AdminPersonneController extends AbstractController
      */
     public function edit(Request $request, Personne $personne): Response
     {
-        $form = $this->createForm(PersonneType::class, $personne);
+        $form = $this->createForm(PersonneEditType::class, $personne);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

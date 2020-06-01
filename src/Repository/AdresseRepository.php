@@ -5,6 +5,8 @@ namespace App\Repository;
 
 use App\Entity\Adresse;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,32 +22,20 @@ class AdresseRepository extends ServiceEntityRepository
         parent::__construct($registry, Adresse::class);
     }
 
-    // /**
-    //  * @return Adresse[] Returns an array of Adresse objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return QueryBuilder
+     */
+    public function findAllQueryBuilder(): QueryBuilder
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+            ->orderBy('a.intitule', 'ASC');
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Adresse
+    /**
+     * @return Query
+     */
+    public function findAllQuery(): Query
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->findAllQueryBuilder()->getQuery();
     }
-    */
 }

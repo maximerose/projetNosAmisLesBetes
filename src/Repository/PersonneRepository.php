@@ -3,10 +3,11 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Adresse;
 use App\Entity\Espece;
 use App\Entity\Personne;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -22,7 +23,11 @@ class PersonneRepository extends ServiceEntityRepository
         parent::__construct($registry, Personne::class);
     }
 
-    public function getPariteEspece(Espece $espece)
+    /**
+     * @param Espece $espece
+     * @return array
+     */
+    public function getPariteEspece(Espece $espece): array
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -38,36 +43,20 @@ class PersonneRepository extends ServiceEntityRepository
         return $data;
     }
 
-    public function getMoyenneAgeAnimaux(Adresse $adresse)
-    {
-    }
-
-    // /**
-    //  * @return Personne[] Returns an array of Personne objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return QueryBuilder
+     */
+    public function findAllQueryBuilder(): QueryBuilder
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+            ->orderBy('p.nom', 'ASC');
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Personne
+    /**
+     * @return Query
+     */
+    public function findAllQuery(): Query
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->findAllQueryBuilder()->getQuery();
     }
-    */
 }

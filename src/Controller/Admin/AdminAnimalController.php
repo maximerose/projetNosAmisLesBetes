@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 use App\Entity\Animal;
 use App\Form\AnimalType;
 use App\Repository\AnimalRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,16 +20,23 @@ class AdminAnimalController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET"})
      * @param AnimalRepository $animalRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return Response
      */
-    public function index(AnimalRepository $animalRepository): Response
+    public function index(AnimalRepository $animalRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        // TODO Paginer
+        $animaux = $paginator->paginate(
+            $animalRepository->findAllQuery(),
+            $request->query->getInt('page', 1),
+            10
+        );
+
         // TODO Recherche
         return $this->render('admin/animal/index.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),
-            'animaux' => $animalRepository->findBy([], ['nom' => 'ASC']),
+            'animaux' => $animaux,
         ]);
     }
 
