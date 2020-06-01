@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Adresse;
+use App\Entity\Search\AdresseSearch;
+use App\Form\AdresseSearchType;
 use App\Form\AdresseType;
 use App\Repository\AdresseRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -26,17 +28,22 @@ class AdminAdresseController extends AbstractController
      */
     public function index(AdresseRepository $adresseRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $search = new AdresseSearch();
+
+        $form = $this->createForm(AdresseSearchType::class, $search);
+        $form->handleRequest($request);
+
         $adresses = $paginator->paginate(
-            $adresseRepository->findAllQuery(),
+            $adresseRepository->findAllQuery($search),
             $request->query->getInt('page', 1),
             10
         );
 
-        // TODO Recherche
         return $this->render('admin/adresse/index.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),
             'adresses' => $adresses,
+            'form' => $form->createView(),
         ]);
     }
 

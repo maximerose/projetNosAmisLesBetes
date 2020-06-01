@@ -1,10 +1,12 @@
-{{ form_start(form) }}
-<div class="form-row">
-    <div class="col-12 col-md-10 mb-2">
-        {{ form_row(form.intitule) }}
+<div class="jumbotron">
+    {{ form_start(form) }}
+    <div class="form-row">
+        <div class="col-12 col-md-10 mb-2">
+            {{ form_row(form.intitule) }}
+        </div>
+        <div class="col">
+            <button type="submit" class="btn-primary btn">Rechercher</button>
+        </div>
     </div>
-    <div class="col">
-        <button type="submit" class="btn-primary btn">Rechercher</button>
-    </div>
+    {{ form_end(form) }}
 </div>
-{{ form_end(form) }}
