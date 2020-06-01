@@ -22,27 +22,24 @@ class AnimalType extends AbstractType
             ->add('nom')
             ->add('age', NumberType::class, [
                 'html5' => true,
-                'label' => 'Âge',
                 'attr' => [
                     'min' => 0,
                 ]
             ])
             ->add('espece', EntityType::class, [
                 'class' => Espece::class,
-                'label' => 'Espèce',
                 'query_builder' => function (EspeceRepository $especeRepository) {
                     return $especeRepository->createQueryBuilder('e')->orderBy('e.nom', 'ASC');
                 },
                 'attr' => [
                     'class' => 'selectpicker',
                     'data-live-search' => true,
-                    'title' => 'Aucune espèce sélectionnée...'
+                    'title' => 'Aucune espèce'
                 ],
                 'required' => false,
             ])
             ->add('maitres', EntityType::class, [
                 'class' => Personne::class,
-                'label' => 'Maître(s)',
                 'query_builder' => function (PersonneRepository $personneRepository) {
                     return $personneRepository->createQueryBuilder('p')->orderBy('p.nom', 'ASC');
                 },
@@ -52,7 +49,7 @@ class AnimalType extends AbstractType
                 'attr' => [
                     'class' => 'selectpicker',
                     'data-live-search' => true,
-                    'title' => 'Aucun maître sélectionné...'
+                    'title' => 'Aucun maitre'
                 ],
                 'multiple' => true,
                 'required' => false,
@@ -64,6 +61,7 @@ class AnimalType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Animal::class,
+            'translation_domain' => 'forms',
         ]);
     }
 }

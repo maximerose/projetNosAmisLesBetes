@@ -14,15 +14,14 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('password', PasswordType::class, [
-                'label' => 'Mot de passe'
-            ]);
+            ->add('password', PasswordType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'translation_domain' => 'forms',
         ]);
     }
 }

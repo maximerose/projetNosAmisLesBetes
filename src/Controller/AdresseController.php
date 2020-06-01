@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Adresse;
+use App\Entity\Search\AdresseSearch;
+use App\Form\AdresseSearchType;
 use App\Repository\AdresseRepository;
 use App\Repository\AnimalRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -26,22 +28,28 @@ class AdresseController extends AbstractController
      */
     public function index(AdresseRepository $adresseRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $search = new AdresseSearch();
+
+        $form = $this->createForm(AdresseSearchType::class, $search);
+        $form->handleRequest($request);
+
         $adresses = $paginator->paginate(
-            $adresseRepository->findAllQuery(),
+            $adresseRepository->findAllQuery($search),
             $request->query->getInt('page', 1),
             10
         );
 
-        // TODO Recherche
         return $this->render('adresse/index.html.twig', [
             'page' => $this->getPage(),
             'adresses' => $adresses,
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/{id}", name="show", methods={"GET"})
      * @param Adresse $adresse
+     * @param AnimalRepository $animalRepository
      * @return Response
      */
     public function show(Adresse $adresse, AnimalRepository $animalRepository): Response

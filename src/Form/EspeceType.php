@@ -20,6 +20,7 @@ class EspeceType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Espece::class,
+            'translation_domain' => 'forms',
         ]);
     }
 }

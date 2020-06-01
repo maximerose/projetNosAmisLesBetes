@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Adresse;
+use App\Entity\Search\AdresseSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -32,10 +33,19 @@ class AdresseRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param AdresseSearch $search
      * @return Query
      */
-    public function findAllQuery(): Query
+    public function findAllQuery(AdresseSearch $search): Query
     {
-        return $this->findAllQueryBuilder()->getQuery();
+        $query = $this->findAllQueryBuilder();
+
+        if ($search->getIntitule()) {
+            $query
+                ->andWhere('a.intitule LIKE :intitule')
+                ->setParameter('intitule', '%' . $search->getIntitule() . '%');
+        }
+
+        return $query->getQuery();
     }
 }

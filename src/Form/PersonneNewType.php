@@ -34,7 +34,6 @@ class PersonneNewType extends AbstractType
                     'min' => 0,
                     'max' => 120
                 ],
-                'label' => 'Âge'
             ])
             ->add('adresse', EntityType::class, [
                 'class' => Adresse::class,
@@ -44,7 +43,7 @@ class PersonneNewType extends AbstractType
                 'attr' => [
                     'class' => 'selectpicker',
                     'data-live-search' => true,
-                    'title' => 'Aucune adresse sélectionnée...'
+                    'title' => 'Aucune adresse'
                 ],
                 'required' => false
             ])
@@ -59,7 +58,7 @@ class PersonneNewType extends AbstractType
                 'attr' => [
                     'class' => 'selectpicker',
                     'data-live-search' => true,
-                    'title' => 'Aucun animal sélectionné...'
+                    'title' => 'Aucun animal'
                 ],
                 'multiple' => true,
                 'required' => false,
@@ -71,6 +70,7 @@ class PersonneNewType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Personne::class,
+            'translation_domain' => 'forms',
         ]);
     }
 }
