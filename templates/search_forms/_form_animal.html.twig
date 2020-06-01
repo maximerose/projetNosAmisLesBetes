@@ -1,0 +1,24 @@
+<div class="jumbotron">
+    {{ form_start(form) }}
+    <div class="form-row">
+        <div class="col-6">
+            {{ form_row(form.nom) }}
+        </div>
+        <div class="col-3">
+            {{ form_row(form.minAge) }}
+        </div>
+        <div class="col-3">
+            {{ form_row(form.maxAge) }}
+        </div>
+        <div class="col-6">
+            {{ form_row(form.especes) }}
+        </div>
+        <div class="col-6">
+            {{ form_row(form.maitres) }}
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn-primary btn">Rechercher</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>

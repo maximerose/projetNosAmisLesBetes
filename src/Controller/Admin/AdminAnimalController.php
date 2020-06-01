@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Animal;
+use App\Entity\Search\AnimalSearch;
+use App\Form\AnimalSearchType;
 use App\Form\AnimalType;
 use App\Repository\AnimalRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -26,17 +28,22 @@ class AdminAnimalController extends AbstractController
      */
     public function index(AnimalRepository $animalRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $search = new AnimalSearch();
+
+        $form = $this->createForm(AnimalSearchType::class, $search);
+        $form->handleRequest($request);
+
         $animaux = $paginator->paginate(
-            $animalRepository->findAllQuery(),
+            $animalRepository->findAllQuery($search),
             $request->query->getInt('page', 1),
             10
         );
 
-        // TODO Recherche
         return $this->render('admin/animal/index.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),
             'animaux' => $animaux,
+            'form' => $form->createView(),
         ]);
     }
 

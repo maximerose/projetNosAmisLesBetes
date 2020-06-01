@@ -5,6 +5,7 @@ namespace App\Repository;
 
 use App\Entity\Adresse;
 use App\Entity\Animal;
+use App\Entity\Search\AnimalSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -54,11 +55,46 @@ class AnimalRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param AnimalSearch $search
      * @return Query
      */
-    public function findAllQuery(): Query
+    public function findAllQuery(AnimalSearch $search): Query
     {
-        return $this->findAllQueryBuilder()->getQuery();
+        $query = $this->findAllQueryBuilder()
+            ->select('p', 'a')
+            ->join('a.maitres', 'p');
+
+        if ($search->getNom()) {
+            $query
+                ->andWhere('a.nom LIKE :nom')
+                ->setParameter('nom', '%' . $search->getNom() . '%');
+        }
+
+        if ($search->getMinAge()) {
+            $query
+                ->andWhere('a.age >= :minAge')
+                ->setParameter('minAge', $search->getMinAge());
+        }
+
+        if ($search->getMaxAge()) {
+            $query
+                ->andWhere('a.age <= :maxAge')
+                ->setParameter('maxAge', $search->getMaxAge());
+        }
+
+        if ($search->getEspeces()) {
+            $query
+                ->andWhere('a.espece IN (:especes)')
+                ->setParameter('especes', $search->getEspeces());
+        }
+
+        if ($search->getMaitres()) {
+            $query
+                ->andWhere('p IN (:maitres)')
+                ->setParameter('maitres', $search->getMaitres());
+        }
+
+        return $query->getQuery();
     }
 
 }
