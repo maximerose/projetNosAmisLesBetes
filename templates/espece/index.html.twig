@@ -5,6 +5,7 @@
 {% block body %}
     <div class="container-fluid">
         <h1>Toutes les espèces</h1>
+        {% include '/search_forms/_form_espece.html.twig' %}
         <div class="row">
             {% for espece in especes %}
                 <div class="col-6 col-md-4 col-lg-3 my-2">

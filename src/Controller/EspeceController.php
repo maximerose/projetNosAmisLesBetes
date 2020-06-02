@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Espece;
+use App\Entity\Search\EspeceSearch;
+use App\Form\EspeceSearchType;
 use App\Repository\EspeceRepository;
 use App\Repository\PersonneRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -26,16 +28,21 @@ class EspeceController extends AbstractController
      */
     public function index(EspeceRepository $especeRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $search = new EspeceSearch();
+
+        $form = $this->createForm(EspeceSearchType::class, $search);
+        $form->handleRequest($request);
+
         $especes = $paginator->paginate(
-            $especeRepository->findAllQuery(),
+            $especeRepository->findAllQuery($search),
             $request->query->getInt('page', 1),
             12
         );
 
-        // TODO Recherche
         return $this->render('espece/index.html.twig', [
             'page' => $this->getPage(),
             'especes' => $especes,
+            'form' => $form->createView(),
         ]);
     }
 
