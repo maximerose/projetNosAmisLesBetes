@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Entity\Search\UserSearch;
 use App\Entity\User;
+use App\Form\UserSearchType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -27,17 +29,22 @@ class AdminUserController extends AbstractController
      */
     public function index(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $search = new UserSearch();
+
+        $form = $this->createForm(UserSearchType::class, $search);
+        $form->handleRequest($request);
+
         $users = $paginator->paginate(
-            $userRepository->findAllQuery(),
+            $userRepository->findAllQuery($search),
             $request->query->getInt('page', 1),
             10
         );
 
-        // TODO Recherche
         return $this->render('admin/user/index.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),
             'users' => $users,
+            'form' => $form->createView(),
         ]);
     }
 

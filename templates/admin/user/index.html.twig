@@ -12,6 +12,9 @@
                 </div>
             {% endfor %}
         {% endfor %}
+
+        {% include '/search_forms/_form_user.html.twig' %}
+
         <a href="{{ path('admin_user_new') }}" class="btn btn-primary mb-2">Ajouter un compte</a>
 
         <div class="table-responsive">
@@ -29,12 +32,13 @@
                             <td>{{ user.username }}</td>
                             {% set i = 1 %}
                             <td>
-                                [
-                                {% for role in user.roles %}
-                                    {{ role }}{{ i < user.roles | length ? ',':'' }}
-                                    {% set i = i+1 %}
-                                {% endfor %}
-                                ]
+                                {% if 'ROLE_ADMIN' in user.roles %}
+                                    Administrateur
+                                {% elseif 'ROLE_SECRETAIRE' in user.roles %}
+                                    Secrétaire
+                                {% else %}
+                                    Utilisateur
+                                {% endif %}
                             </td>
                             <td class="d-flex">
                                 <a href="{{ path('admin_user_show', {id: user.id}) }}" class="btn btn-link">

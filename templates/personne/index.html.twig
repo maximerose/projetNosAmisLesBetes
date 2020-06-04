@@ -5,13 +5,14 @@
 {% block body %}
     <div class="container-fluid">
         <h1>Toutes les personnes</h1>
+        {% include '/search_forms/_form_personne.html.twig' %}
         <div class="row">
             {% for personne in personnes %}
                 <div class="col-6 col-md-4 col-lg-3 my-2">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">{{ personne.nom }}</h5>
-                            <p class="card-text m-0">Sexe : {{ personne.sexe == 'M' ? 'Homme' ? 'Femme' }}</p>
+                            <p class="card-text m-0">Sexe : {{ personne.sexe == 'M' ? 'Homme' : 'Femme' }}</p>
                             <p class="card-text m-0">Âge : {{ personne.age }}</p>
                             <p class="card-text m-0">Adresse :
                                 {% if personne.adresse %}

@@ -5,6 +5,7 @@ namespace App\Repository;
 
 use App\Entity\Espece;
 use App\Entity\Personne;
+use App\Entity\Search\PersonneSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -53,10 +54,51 @@ class PersonneRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param PersonneSearch $search
      * @return Query
      */
-    public function findAllQuery(): Query
+    public function findAllQuery(PersonneSearch $search): Query
     {
-        return $this->findAllQueryBuilder()->getQuery();
+        $query = $this->findAllQueryBuilder()
+            ->select('a', 'p')
+            ->join('p.animaux', 'a');
+
+        if ($search->getNom()) {
+            $query
+                ->andWhere('p.nom LIKE :nom')
+                ->setParameter('nom', '%' . $search->getNom() . '%');
+        }
+
+        if ($search->getMinAge()) {
+            $query
+                ->andWhere('p.age >= :minAge')
+                ->setParameter('minAge', $search->getMinAge());
+        }
+
+        if ($search->getMaxAge()) {
+            $query
+                ->andWhere('p.age <= :maxAge')
+                ->setParameter('maxAge', $search->getMaxAge());
+        }
+
+        if ($search->getSexes()) {
+            $query
+                ->andWhere('p.sexe IN (:sexes)')
+                ->setParameter('sexes', $search->getSexes());
+        }
+
+        if ($search->getAdresses()) {
+            $query
+                ->andWhere('p.adresse IN (:adresses)')
+                ->setParameter('adresses', $search->getAdresses());
+        }
+
+        if ($search->getAnimaux()) {
+            $query
+                ->andWhere('a IN (:animaux)')
+                ->setParameter('animaux', $search->getAnimaux());
+        }
+
+        return $query->getQuery();
     }
 }

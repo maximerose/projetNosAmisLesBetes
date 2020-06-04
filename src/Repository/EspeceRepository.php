@@ -33,6 +33,7 @@ class EspeceRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param EspeceSearch $search
      * @return Query
      */
     public function findAllQuery(EspeceSearch $search): Query

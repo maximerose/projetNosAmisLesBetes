@@ -4,8 +4,8 @@
 {% block admin %}
     <div class="container-fluid">
         <h1>Espace d'administration</h1>
-        <div class="row">
-            <div class="col-12 col-md-6 col-lg-3 my-2">
+        <div class="row d-flex flex-wrap">
+            <div class="col-12 col-sm-6 col-md-4 my-2">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Espèces</h5>
@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3 my-2">
+            <div class="col-12 col-sm-6 col-md-4 my-2">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Animaux</h5>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3 my-2">
+            <div class="col-12 col-sm-6 col-md-4 my-2">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Personnes</h5>
@@ -32,12 +32,21 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3 my-2">
+            <div class="col-12 col-sm-6 col-md-4 my-2">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Adresses</h5>
                         <p class="card-text">Cliquez ci-dessous pour accéder à la liste des adresses.</p>
                         <a href="{{ path('admin_adresse_index') }}" class="btn btn-primary">Gérer</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 my-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Utilisateurs</h5>
+                        <p class="card-text">Cliquez ci-dessous pour accéder à la liste des utilisateurs.</p>
+                        <a href="{{ path('admin_user_index') }}" class="btn btn-primary">Gérer</a>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Espece;
+use App\Entity\Search\EspeceSearch;
+use App\Form\EspeceSearchType;
 use App\Form\EspeceType;
 use App\Repository\EspeceRepository;
 use App\Repository\PersonneRepository;
@@ -27,13 +29,17 @@ class AdminEspeceController extends AbstractController
      */
     public function index(EspeceRepository $especeRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $search = new EspeceSearch();
+
+        $form = $this->createForm(EspeceSearchType::class, $search);
+        $form->handleRequest($request);
+
         $especes = $paginator->paginate(
-            $especeRepository->findAllQuery(),
+            $especeRepository->findAllQuery($search),
             $request->query->getInt('page', 1),
             10
         );
 
-        // TODO Recherche
         return $this->render('admin/espece/index.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),

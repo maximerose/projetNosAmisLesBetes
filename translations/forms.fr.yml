@@ -8,12 +8,14 @@ Intitule: Intitulé
 
 # PERSONNE
 Adresse: Adresse
+Adresses: Adresses
 Animaux: Animaux
 Aucun animal: Aucun animal sélectionné...
 Aucune adresse: Aucune adresse sélectionnée...
 Femme: Femme
 Homme: Homme
 Sexe: Sexe
+Sexes: Sexes
 
 # ANIMAUX
 Aucun maitre: Aucun maître sélectionné...
@@ -27,3 +29,7 @@ Max age: Âge max
 # UTILISATEURS
 Password: Mot de passe
 Username: Nom d'utilisateur
+Roles: Rôles
+Administrateur: Administrateur
+Secrétaire: Secrétaire
+Utilisateur: Utilisateur

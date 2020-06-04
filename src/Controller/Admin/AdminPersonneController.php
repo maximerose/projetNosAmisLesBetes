@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Personne;
+use App\Entity\Search\PersonneSearch;
 use App\Form\PersonneEditType;
 use App\Form\PersonneNewType;
+use App\Form\PersonneSearchType;
 use App\Repository\PersonneRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,17 +29,22 @@ class AdminPersonneController extends AbstractController
      */
     public function index(PersonneRepository $personneRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $search = new PersonneSearch();
+
+        $form = $this->createForm(PersonneSearchType::class, $search);
+        $form->handleRequest($request);
+
         $personnes = $paginator->paginate(
-            $personneRepository->findAllQuery(),
+            $personneRepository->findAllQuery($search),
             $request->query->getInt('page', 1),
             10
         );
 
-        // TODO Recherche
         return $this->render('admin/personne/index.html.twig', [
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),
             'personnes' => $personnes,
+            'form' => $form->createView(),
         ]);
     }
 

@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Search;
 
-
 use App\Entity\Espece;
 use App\Entity\Personne;
 

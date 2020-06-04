@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Search\UserSearch;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -28,6 +31,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     * @param UserInterface $user
+     * @param string $newEncodedPassword
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {
@@ -50,10 +57,44 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
+     * @param UserSearch $search
      * @return Query
      */
-    public function findAllQuery(): Query
+    public function findAllQuery(UserSearch $search): Query
     {
-        return $this->findAllQueryBuilder()->getQuery();
+        $query = $this->findAllQueryBuilder();
+
+        if ($search->getUsername()) {
+            $query
+                ->andWhere('u.username LIKE :username')
+                ->setParameter('username', '%' . $search->getUsername() . '%');
+        }
+
+        if ($search->getRoles()) {
+            $where = '';
+            $i = 0;
+            foreach ($search->getRoles() as $role) {
+                if ($role === 'ROLE_USER') {
+                    if (count($search->getRoles()) > 1 and $i > 0) {
+                        $where .= ' OR u.roles LIKE \'[]\'';
+                    } else {
+                        $where .= 'u.roles LIKE \'[]\'';
+                    }
+                } else {
+                    if (count($search->getRoles()) > 1 and $i > 0) {
+                        $where .= ' OR u.roles LIKE :role';
+                    } else {
+                        $where .= 'u.roles LIKE :role';
+                    }
+
+                    $query->setParameter('role', '%' . $role . '%');
+                }
+                $i++;
+            }
+            $query
+                ->andWhere($where);
+        }
+
+        return $query->getQuery();
     }
 }

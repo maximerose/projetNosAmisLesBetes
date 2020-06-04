@@ -12,6 +12,7 @@
                 </div>
             {% endfor %}
         {% endfor %}
+        {% include '/search_forms/_form_espece.html.twig' %}
         <a href="{{ path('admin_espece_new') }}" class="btn btn-primary mb-2">Ajouter une espèce</a>
         <div class="table-responsive">
             <table class="table table-striped">

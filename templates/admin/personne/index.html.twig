@@ -12,6 +12,9 @@
                 </div>
             {% endfor %}
         {% endfor %}
+
+        {% include '/search_forms/_form_personne.html.twig' %}
+
         <a href="{{ path('admin_personne_new') }}" class="btn btn-primary mb-2">Ajouter une personne</a>
 
         <div class="table-responsive">

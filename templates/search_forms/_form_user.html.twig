@@ -1,0 +1,15 @@
+<div class="jumbotron">
+    {{ form_start(form) }}
+    <div class="form-row">
+        <div class="col-8">
+            {{ form_row(form.username) }}
+        </div>
+        <div class="col-4">
+            {{ form_row(form.roles) }}
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn-primary btn">Rechercher</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>
