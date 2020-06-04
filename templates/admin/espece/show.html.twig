@@ -7,17 +7,17 @@
         <h1>{{ espece.nom }}</h1>
 
         <p><a href="{{ path('admin_espece_index') }}">Retour à la liste</a></p>
-
-        <h2>Statistiques</h2>
-        {#        TODO Affichage pie chart#}
-        <p>Parité maîtres / maîtresses : {{ parite.hommes }}<i class="fas fa-male"></i> | {{ parite.femmes }}<i
-                    class="fas fa-female"></i>
-        </p>
-
         <a href="{{ path('admin_espece_edit', {id: espece.id}) }}" class="btn btn-primary mb-2">Modifier</a>
         {% if is_granted('ROLE_ADMIN') and espece.animaux | length == 0 %}
             {{ include('admin/espece/_delete_form.html.twig', {table: false}) }}
         {% endif %}
+
+        <h2>Statistiques</h2>
+        <div class="row">
+            <div class="col-3">
+                <canvas id="parite" width="50" height="50" data-parite="{{ parite|json_encode }}"></canvas>
+            </div>
+        </div>
 
         <hr/>
 
@@ -66,4 +66,41 @@
             </table>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    <script>
+        const pariteChart = $('#parite');
+        const parite = pariteChart.data('parite');
+
+        const ctx = document.getElementById('parite').getContext('2d');
+
+        const myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Maîtres', 'Maitresses'],
+                datasets: [{
+                    label: 'Parité',
+                    data: [parite.hommes, parite.femmes],
+                    backgroundColor: [
+                        'rgba(120, 194, 173, 0.5)',
+                        'rgba(243, 150, 154, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(120, 194, 173, 1)',
+                        'rgba(243, 150, 154, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: ['Parité maîtres / maîtresses', 'Total : ' + parite.total],
+                }
+            }
+        });
+    </script>
 {% endblock %}

@@ -8,10 +8,11 @@
         <p><a href="{{ path('espece_index') }}">Retour à la liste</a></p>
 
         <p class="lead">Statistiques</p>
-        {#        TODO Affichage pie chart#}
-        <p>Parité maîtres / maîtresses : {{ parite.hommes }}<i class="fas fa-male"></i> | {{ parite.femmes }}<i
-                    class="fas fa-female"></i>
-        </p>
+        <div class="row">
+            <div class="col-3">
+                <canvas id="parite" width="50" height="50" data-parite="{{ parite|json_encode }}"></canvas>
+            </div>
+        </div>
 
         <hr/>
 
@@ -48,4 +49,40 @@
             </table>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    <script>
+        const pariteChart = $('#parite');
+        const parite = pariteChart.data('parite');
+
+        const ctx = document.getElementById('parite').getContext('2d');
+
+        const myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Maîtres', 'Maitresses'],
+                datasets: [{
+                    label: 'Parité',
+                    data: [parite.hommes, parite.femmes],
+                    backgroundColor: [
+                        'rgba(120, 194, 173, 0.5)',
+                        'rgba(243, 150, 154, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(120, 194, 173, 1)',
+                        'rgba(243, 150, 154, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: ['Parité maîtres / maîtresses', 'Total : ' + parite.total],
+                }
+            }
+        });
+    </script>
 {% endblock %}

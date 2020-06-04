@@ -44,6 +44,7 @@ class AdminEspeceController extends AbstractController
             'page' => $this->getPage(),
             'adminPage' => $this->getAdminPage(),
             'especes' => $especes,
+            'form' => $form->createView(),
         ]);
     }
 
