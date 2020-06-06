@@ -8,7 +8,9 @@
 
         {{ include('admin/espece/_form.html.twig', {button_label : 'Modifier'}) }}
 
-        {{ include('admin/espece/_delete_form.html.twig', {table: false}) }}
+        {% if is_granted('ROLE_ADMIN') and espece.animaux | length == 0 %}
+            {{ include('admin/espece/_delete_form.html.twig', {table: false}) }}
+        {% endif %}
 
         <a href="{{ path('admin_espece_index') }}">Retour à la liste</a>
     </div>
