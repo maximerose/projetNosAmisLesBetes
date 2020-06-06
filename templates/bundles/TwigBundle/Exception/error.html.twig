@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Page non trouvée' %}
+{% block title '[' ~ status_code ~ '] ' ~ status_text | trans %}
 
 {% block stylesheets %}
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
 
     <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="/colorlib-error-404-4/css/style.css"/>
+    <link type="text/css" rel="stylesheet"
+          href="{{ asset('/colorlib-error-404-4/css/style.css') }}?{{ date().timestamp }}"/>
 {% endblock %}
 
 {% block body %}
@@ -15,9 +16,9 @@
         <div class="notfound">
             <div class="notfound-404">
                 <h1>Oops!</h1>
-                <h2>404 - La page demandée n'a pas été trouvée</h2>
+                <h2>{{ status_code }} - {{ status_text | trans }} !</h2>
             </div>
-            <a href="{{ path('index') }}">Retourner à l'accueil</a>
+            <a href="{{ path('index') }}" class="btn btn-primary btn-lg">Retourner à l'accueil</a>
         </div>
     </div>
 {% endblock %}
