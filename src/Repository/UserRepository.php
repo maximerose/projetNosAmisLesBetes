@@ -82,12 +82,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                     }
                 } else {
                     if (count($search->getRoles()) > 1 and $i > 0) {
-                        $where .= ' OR u.roles LIKE :role';
+                        $where .= ' OR u.roles LIKE :role_' . $i;
                     } else {
-                        $where .= 'u.roles LIKE :role';
+                        $where .= 'u.roles LIKE :role_' . $i;
                     }
 
-                    $query->setParameter('role', '%' . $role . '%');
+                    $query->setParameter('role_' . $i, '%' . $role . '%');
                 }
                 $i++;
             }

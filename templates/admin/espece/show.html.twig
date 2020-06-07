@@ -6,6 +6,8 @@
     <div class="container-fluid">
         <h1>{{ espece.nom }}</h1>
 
+        {% include '/_flash_message.html.twig' %}
+
         <p><a href="{{ path('admin_espece_index') }}">Retour à la liste</a></p>
         <a href="{{ path('admin_espece_edit', {id: espece.id}) }}" class="btn btn-primary mb-2">Modifier</a>
         {% if is_granted('ROLE_ADMIN') and espece.animaux | length == 0 %}

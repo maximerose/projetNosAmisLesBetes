@@ -6,6 +6,8 @@
     <div class="container-fluid">
         <h1>{{ animal.nom }}</h1>
 
+        {% include '/_flash_message.html.twig' %}
+
         <p><a href="{{ path('admin_animal_index') }}">Retour à la liste</a></p>
 
         <p>Espèce :

@@ -6,7 +6,10 @@
     <div class="container-fluid">
         <h1>{{ user.username }}</h1>
 
+        {% include '/_flash_message.html.twig' %}
+
         <p><a href="{{ path('admin_user_index') }}">Retour à la liste</a></p>
+
         <ul class="list-group">
             {% for role in user.roles %}
                 <li>{{ role }}</li>

@@ -6,6 +6,8 @@
     <div class="container-fluid">
         <h1>{{ personne.nom }}</h1>
 
+        {% include '/_flash_message.html.twig' %}
+
         <p><a href="{{ path('admin_personne_index') }}">Retour à la liste</a></p>
 
         <h2>Informations générales</h2>

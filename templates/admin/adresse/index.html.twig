@@ -5,13 +5,8 @@
 {% block admin %}
     <div class="container-fluid">
         <h1>Liste des adresses</h1>
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="alert alert-{{ label }} mb-2">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
+
+        {% include '/_flash_message.html.twig' %}
 
         {% include '/search_forms/_form_adresse.html.twig' %}
 

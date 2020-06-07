@@ -6,6 +6,8 @@
     <div class="container-fluid">
         <h1>{{ adresse.intitule }}</h1>
 
+        {% include '/_flash_message.html.twig' %}
+
         <p><a href="{{ path('admin_adresse_index') }}">Retour à la liste</a></p>
 
         <a href="{{ path('admin_adresse_edit', {id: adresse.id}) }}" class="btn btn-primary mb-2">Modifier</a>
